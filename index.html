@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 
-<!-- Skrypty Botpress w sekcji HEAD -->
+<!-- Skrypty Botpress (Działa tylko widget w prawym dolnym rogu) -->
 <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
 <script src="https://files.bpcontent.cloud/2026/10/23/17/20261023172352-Y9G3N2QD.js" defer></script>
 
@@ -75,7 +75,6 @@ section{padding:80px 0;border-top:1px solid var(--line)}
 .flow.go .ln{animation:dr 1.1s ease forwards}
 .flow.go .ln:nth-of-type(2){animation-delay:.4s}.flow.go .ln:nth-of-type(3){animation-delay:.8s}
 @keyframes dr{to{stroke-dashoffset:0}}
-.live-box{margin-top:32px;border:1px dashed #98a4b0;border-radius:10px;padding:40px 28px;text-align:center;background:var(--pane)}
 .plans{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:20px;margin-top:40px;align-items:stretch}
 .plan{border:1px solid var(--line);background:var(--pane);border-radius:var(--r);padding:28px;display:flex;flex-direction:column}
 .plan.f{background:var(--dark);color:#e8edf2;border-color:var(--dark);padding-top:36px;padding-bottom:36px}
@@ -98,7 +97,7 @@ label{font-size:15px;color:var(--mut);display:grid;gap:6px}
 input,textarea{font:inherit;padding:12px 14px;border:1px solid #aeb8c2;border-radius:var(--r);background:#fff;color:var(--ink)}
 textarea{min-height:120px;resize:vertical}
 .hp{position:absolute;left:-9999px}
-#fs{min-height:24px;margin:0}
+#fs{min-height:24px;margin:0;font-weight:500}
 footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);font-size:14px}
 @media(max-width:860px){.hero,.two,.plans{grid-template-columns:1fr}.hero{padding:44px 0 56px;gap:36px}nav{display:none}.demo{min-height:auto}section{padding:56px 0}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.flow .ln{stroke-dashoffset:0}html{scroll-behavior:auto}}
@@ -149,15 +148,6 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
 <rect x="700" y="27" width="170" height="56" rx="6"/><text x="785" y="61" text-anchor="middle" data-i18n="f4"></text>
 <path class="ln" pathLength="1" d="M180 55H240"/><path class="ln" pathLength="1" d="M410 55H470"/><path class="ln" pathLength="1" d="M640 55H700"/>
 </svg>
-</div>
-</div></section>
-
-<section><div class="w">
-<h2 data-i18n="lt"></h2>
-<p class="sub" data-i18n="lx"></p>
-<div class="live-box">
-  <p style="margin-bottom:16px;">Kliknij przycisk poniżej lub ikony w prawym dolnym rogu, aby rozpocząć rozmowę z botem.</p>
-  <button class="btn p" onclick="window.botpressWebChat && window.botpressWebChat.sendEvent({type: 'show'})">Otwórz czat bota</button>
 </div>
 </div></section>
 
@@ -229,8 +219,8 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
 
 <script>
 const CONFIG={
-  email:"kontakt@twojadomena.pl",
-  webhook:""
+  email:"kontakt@coreflux.pl",
+  webhook:"https://discord.com/api/webhooks/1563261942045352118/n_BV6efAYXEyM8l6Snv1j2uViy5vs5L9lJoWxe5qCg1QSojKiKWlxJzjaMwt1tX1wnaJ"
 };
 
 const T={
@@ -246,7 +236,6 @@ p3:"Zapytania giną w skrzynkach, bo nikt nie ma kiedy ich uporządkować.",
 ht:"Od rozmowy do gotowego zgłoszenia u Ciebie",
 hx:"Bot prowadzi rozmowę i zbiera potrzebne dane. Automatyzacja zapisuje zgłoszenie w arkuszu lub wysyła je mailem. Gdy bot nie zna odpowiedzi, przekazuje rozmowę człowiekowi.",
 f1:"Rozmowa",f2:"Bot",f3:"Automatyzacja",f4:"Twój zespół",
-lt:"Porozmawiaj z prawdziwym botem",lx:"To nie nagranie. Wpisz własne pytanie i sprawdź, jak bot odpowiada.",
 prt:"Pakiety",prx:"Zaczynamy od krótkiego pilota, żeby sprawdzić bota na Twoich prawdziwych pytaniach.",
 a1:"Start",a1p:"od 990 zł",a1d:"Dla małych firm rozpoczynających automatyzację.",
 f_s1:"Jeden wyznaczony kanał",f_s2:"Najczęstsze pytania i FAQ",
@@ -278,7 +267,6 @@ p3:"Enquiries get lost in inboxes because nobody has time to sort them.",
 ht:"From conversation to a ready request on your side",
 hx:"The bot runs the conversation and collects the details. Automation saves the request to a spreadsheet or sends it by email. When the bot doesn’t know the answer, it hands the chat to a person.",
 f1:"Conversation",f2:"Bot",f3:"Automation",f4:"Your team",
-lt:"Talk to a real bot",lx:"This isn’t a recording. Type your own question and see how the bot answers.",
 prt:"Plans",prx:"We start with a short pilot to test the bot on your real questions.",
 a1:"Start",a1p:"from 990 PLN",a1d:"For small businesses starting automation.",
 f_s1:"One designated channel",f_s2:"Common FAQ handling",
@@ -416,18 +404,48 @@ new IntersectionObserver((en,ob)=>en.forEach(x=>{if(x.isIntersecting){x.target.c
 
 $("#yr").textContent=new Date().getFullYear();
 
+// INTEGRACJA WEBHOOKA DISCORD W FORMULARZU KONTAKTOWYM
 $("#f").addEventListener("submit",async ev=>{
   ev.preventDefault();
   const f=ev.target,d=Object.fromEntries(new FormData(f)),st=$("#fs");
   if(d.website)return;
-  if(!d.name||!d.message||!/^\S+@\S+\.\S+$/.test(d.email||"")){st.textContent=T[lang].req;return}
-  delete d.website;d.lang=lang;
-  if(CONFIG.webhook){
-    try{const r=await fetch(CONFIG.webhook,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)});if(!r.ok)throw 0;f.reset();st.textContent=T[lang].ok}
-    catch(e){st.textContent=T[lang].err+CONFIG.email+"."}
-  }else{
-    location.href="mailto:"+CONFIG.email+"?subject="+encodeURIComponent("Coreflux: "+d.name)+"&body="+encodeURIComponent(d.message+"\n\n"+d.name+"\n"+d.email+"\n"+(d.company||""));
-    st.textContent=T[lang].ok;
+  if(!d.name||!d.message||!/^\S+@\S+\.\S+$/.test(d.email||"")){
+    st.style.color = "#d9534f";
+    st.textContent=T[lang].req;
+    return;
+  }
+  
+  st.style.color = "var(--ink)";
+  st.textContent = "Wysyłanie...";
+
+  const discordPayload = {
+    embeds: [{
+      title: "🚀 Nowe zgłoszenie ze strony Coreflux",
+      color: 1590480, // Kolor żółty/złoty Coreflux
+      fields: [
+        { name: "👤 Imię i nazwisko", value: d.name, inline: true },
+        { name: "📧 E-mail", value: d.email, inline: true },
+        { name: "🏢 Firma", value: d.company || "Brak danych", inline: true },
+        { name: "💬 Treść zapytania", value: d.message }
+      ],
+      footer: { text: "Coreflux Web Form • " + new Date().toLocaleString("pl-PL") }
+    }]
+  };
+
+  try {
+    const r = await fetch(CONFIG.webhook, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(discordPayload)
+    });
+
+    if (!r.ok) throw new Error();
+    f.reset();
+    st.style.color = "#28a745";
+    st.textContent = T[lang].ok;
+  } catch(e) {
+    st.style.color = "#d9534f";
+    st.textContent = T[lang].err + CONFIG.email + ".";
   }
 });
 
