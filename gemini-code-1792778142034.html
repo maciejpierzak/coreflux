@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coreflux</title>
+<meta name="description" content="Coreflux: chatboty dla firm, które odpowiadają klientom, zbierają zapytania i automatyzują powtarzalną obsługę.">
+<meta property="og:title" content="Coreflux">
+<meta property="og:description" content="Chatboty dla firm: odpowiedzi, zapytania, automatyzacja.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316222e'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23f2b01e'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1f4;--pane:#fff;--ink:#16222e;--mut:#56616d;--line:#d3d9e0;--dark:#16222e;--amb:#f2b01e;--amb2:#d99a0c;--r:6px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;line-height:1.1;letter-spacing:-.02em;margin:0}
+h2{font-size:clamp(28px,3.4vw,40px);font-weight:700}
+.w{max-width:1120px;margin:0 auto;padding:0 24px}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--amb);outline-offset:2px}
+header{position:sticky;top:0;z-index:5;background:rgba(238,241,244,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:26px;height:64px}
+.logo{font:700 22px "Bricolage Grotesque",sans-serif;text-decoration:none;color:var(--ink);margin-right:auto}
+nav{display:flex;gap:26px}
+nav a{color:var(--mut);text-decoration:none;font-size:15px}
+nav a:hover{color:var(--ink)}
+.lang{display:flex;gap:4px;font-size:14px}
+.lang button{border:0;background:none;color:var(--mut);padding:4px 6px;cursor:pointer;font:inherit;border-bottom:2px solid transparent}
+.lang button[aria-pressed=true]{color:var(--ink);border-color:var(--amb)}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;padding:72px 0 88px;align-items:center}
+h1{font-size:clamp(38px,5.4vw,66px);font-weight:700}
+.lead{color:var(--mut);max-width:34em;margin:22px 0 32px;font-size:19px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:14px 22px;border-radius:var(--r);font-weight:500;text-decoration:none;border:1px solid var(--ink);color:var(--ink);transition:background .15s;cursor:pointer;font-family:inherit;font-size:16px;background:none}
+.btn.p{background:var(--amb);border-color:var(--amb)}
+.btn.p:hover{background:var(--amb2);border-color:var(--amb2)}
+.btn:not(.p):hover{background:#fff}
+.demo{background:var(--dark);color:#e8edf2;border-radius:14px;padding:18px;display:flex;flex-direction:column;min-height:520px}
+.dh{font-size:14px;color:#9fb0c0;padding:2px 4px 14px;border-bottom:1px solid #2a3846;display:flex;justify-content:space-between;align-items:center}
+.dh-status{font-size:11px;font-family:monospace;background:#223140;padding:2px 6px;border-radius:4px;color:#f2b01e}
+.log{flex:1;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:16px 2px;max-height:260px}
+.m{max-width:86%;padding:10px 14px;border-radius:12px;font-size:15px;line-height:1.45;animation:in .25s ease}
+.m.u{align-self:flex-end;background:var(--amb);color:#16222e;border-bottom-right-radius:3px}
+.m.b{align-self:flex-start;background:#223140;border-bottom-left-radius:3px}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.ty i{display:inline-block;width:6px;height:6px;margin:0 2px;border-radius:50%;background:#9fb0c0;animation:bl 1s infinite}
+.ty i:nth-child(2){animation-delay:.15s}.ty i:nth-child(3){animation-delay:.3s}
+@keyframes bl{50%{opacity:.25}}
+.stream-box{border-top:1px solid #2a3846;padding-top:10px;margin-top:4px}
+.stream-title{font-size:11px;font-family:monospace;color:#9fb0c0;margin-bottom:6px}
+.stream-code{background:#111822;padding:8px 10px;border-radius:4px;font-family:monospace;font-size:11px;color:#f2b01e;overflow-x:auto;margin:0;min-height:48px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid #2a3846;padding-top:12px;margin-top:auto}
+.chips p{width:100%;margin:0 0 2px;font-size:13px;color:#9fb0c0}
+.chips button{background:none;border:1px solid #3a4b5c;color:#e8edf2;border-radius:99px;padding:6px 14px;font:inherit;font-size:14px;cursor:pointer;transition:background .15s}
+.chips button:hover{background:#223140}
+.chips button[aria-pressed=true]{background:var(--amb);border-color:var(--amb);color:#16222e}
+section{padding:80px 0;border-top:1px solid var(--line)}
+.two{display:grid;grid-template-columns:1fr 1.3fr;gap:56px}
+.rows p{margin:0;padding:22px 0;border-top:1px solid var(--line);font-size:19px;display:flex;gap:16px}
+.rows p span{color:var(--mut);font-weight:500;font-family:"Bricolage Grotesque",sans-serif}
+.rows p:first-child{border-top:0;padding-top:4px}
+.sub{color:var(--mut);max-width:38em;margin:16px 0 0}
+.flow{overflow-x:auto;margin-top:36px}
+.flow svg{min-width:680px;width:100%;height:auto;display:block}
+.flow text{font:500 17px "IBM Plex Sans",sans-serif;fill:var(--ink)}
+.flow rect{fill:var(--pane);stroke:var(--ink);stroke-width:1.5}
+.flow .ln{stroke:var(--ink);stroke-width:1.5;fill:none;stroke-dasharray:1;stroke-dashoffset:1}
+.flow.go .ln{animation:dr 1.1s ease forwards}
+.flow.go .ln:nth-of-type(2){animation-delay:.4s}.flow.go .ln:nth-of-type(3){animation-delay:.8s}
+@keyframes dr{to{stroke-dashoffset:0}}
+.live{margin-top:32px;min-height:220px;border:1px dashed #98a4b0;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:28px;color:var(--mut);text-align:center;background:var(--pane)}
+.plans{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:20px;margin-top:40px;align-items:stretch}
+.plan{border:1px solid var(--line);background:var(--pane);border-radius:var(--r);padding:28px;display:flex;flex-direction:column}
+.plan.f{background:var(--dark);color:#e8edf2;border-color:var(--dark);padding-top:36px;padding-bottom:36px}
+.plan h3{font-size:24px}
+.plan .pr{font:700 30px "Bricolage Grotesque",sans-serif;margin:14px 0 4px}
+.plan p{margin:0 0 20px;color:var(--mut);font-size:16px}
+.plan.f p{color:#b4c2cf}
+.plan-features{list-style:none;padding:0;margin:0 0 24px;font-size:15px;color:var(--mut);flex-grow:1}
+.plan.f .plan-features{color:#b4c2cf}
+.plan-features li{margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.plan-features li::before{content:"—";color:var(--amb)}
+.tag{display:inline-block;background:var(--amb);color:#16222e;border-radius:99px;padding:2px 12px;font-size:13px;font-weight:500;margin-bottom:12px}
+.anchor{margin-top:28px;color:var(--mut);max-width:40em}
+details{border-top:1px solid var(--line);padding:18px 0}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:500;font-size:18px}
+details p{margin:10px 0 0;color:var(--mut)}
+form{display:grid;gap:14px;max-width:560px}
+label{font-size:15px;color:var(--mut);display:grid;gap:6px}
+input,textarea{font:inherit;padding:12px 14px;border:1px solid #aeb8c2;border-radius:var(--r);background:#fff;color:var(--ink)}
+textarea{min-height:120px;resize:vertical}
+.hp{position:absolute;left:-9999px}
+#fs{min-height:24px;margin:0}
+footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);font-size:14px}
+@media(max-width:860px){.hero,.two,.plans{grid-template-columns:1fr}.hero{padding:44px 0 56px;gap:36px}nav{display:none}.demo{min-height:auto}section{padding:56px 0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.flow .ln{stroke-dashoffset:0}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="w nav">
+<a class="logo" href="#top">Coreflux</a>
+<nav><a href="#how" data-i18n="n1"></a><a href="#plans" data-i18n="n2"></a><a href="#faq" data-i18n="n3"></a><a href="#contact" data-i18n="n4"></a></nav>
+<div class="lang" role="group" aria-label="Language"><button data-l="pl">PL</button><button data-l="en">EN</button></div>
+</div></header>
+
+<main id="top">
+<div class="w hero">
+<div>
+<h1 data-i18n="h1"></h1>
+<p class="lead" data-i18n="lead"></p>
+<div class="btns"><a class="btn p" href="#contact" data-i18n="c1"></a><a class="btn" href="#how" data-i18n="c2"></a></div>
+</div>
+<div class="demo">
+<div class="dh"><span id="dh"></span><span class="dh-status">● LIVE WEBHOOK</span></div>
+<div class="log" id="log" aria-live="polite"></div>
+<div class="stream-box">
+  <div class="stream-title" data-i18n="stream_title">OSTATNI PAYLOAD DO SYSTEMU:</div>
+  <pre class="stream-code"><code id="json-output">{ "status": "czekam na zdarzenie..." }</code></pre>
+</div>
+<div class="chips" id="chips"><p data-i18n="pick"></p></div>
+</div>
+</div>
+
+<section><div class="w two">
+<h2 data-i18n="pt"></h2>
+<div class="rows">
+  <p><span>01</span><span data-i18n="p1"></span></p>
+  <p><span>02</span><span data-i18n="p2"></span></p>
+  <p><span>03</span><span data-i18n="p3"></span></p>
+</div>
+</div></section>
+
+<section id="how"><div class="w">
+<h2 data-i18n="ht"></h2>
+<p class="sub" data-i18n="hx"></p>
+<div class="flow" id="flow">
+<svg viewBox="0 0 880 110" role="img" aria-label="Flow">
+<rect x="10" y="27" width="170" height="56" rx="6"/><text x="95" y="61" text-anchor="middle" data-i18n="f1"></text>
+<rect x="240" y="27" width="170" height="56" rx="6"/><text x="325" y="61" text-anchor="middle" data-i18n="f2"></text>
+<rect x="470" y="27" width="170" height="56" rx="6"/><text x="555" y="61" text-anchor="middle" data-i18n="f3"></text>
+<rect x="700" y="27" width="170" height="56" rx="6"/><text x="785" y="61" text-anchor="middle" data-i18n="f4"></text>
+<path class="ln" pathLength="1" d="M180 55H240"/><path class="ln" pathLength="1" d="M410 55H470"/><path class="ln" pathLength="1" d="M640 55H700"/>
+</svg>
+</div>
+</div></section>
+
+<section><div class="w">
+<h2 data-i18n="lt"></h2>
+<p class="sub" data-i18n="lx"></p>
+<div class="live" id="live" data-i18n="lp"></div>
+</div></section>
+
+<section id="plans"><div class="w">
+<h2 data-i18n="prt"></h2>
+<p class="sub" data-i18n="prx"></p>
+<div class="plans">
+<div class="plan">
+  <h3 data-i18n="a1"></h3>
+  <div class="pr" data-i18n="a1p"></div>
+  <p data-i18n="a1d"></p>
+  <ul class="plan-features">
+    <li data-i18n="f_s1"></li>
+    <li data-i18n="f_s2"></li>
+  </ul>
+  <a class="btn" href="#contact" data-i18n="choose">Wybierz pakiet</a>
+</div>
+<div class="plan f">
+  <span class="tag" data-i18n="top"></span>
+  <h3 data-i18n="a2"></h3>
+  <div class="pr" data-i18n="a2p"></div>
+  <p data-i18n="a2d"></p>
+  <ul class="plan-features">
+    <li data-i18n="f_b1"></li>
+    <li data-i18n="f_b2"></li>
+    <li data-i18n="f_b3"></li>
+  </ul>
+  <a class="btn p" href="#contact" data-i18n="choose">Wybierz pakiet</a>
+</div>
+<div class="plan">
+  <h3 data-i18n="a3"></h3>
+  <div class="pr" data-i18n="a3p"></div>
+  <p data-i18n="a3d"></p>
+  <ul class="plan-features">
+    <li data-i18n="f_c1"></li>
+    <li data-i18n="f_c2"></li>
+  </ul>
+  <a class="btn" href="#contact" data-i18n="choose">Wybierz pakiet</a>
+</div>
+</div>
+<p class="anchor" data-i18n="anc"></p>
+</div></section>
+
+<section id="faq"><div class="w two">
+<h2 data-i18n="ft"></h2>
+<div>
+<details><summary data-i18n="q1"></summary><p data-i18n="r1"></p></details>
+<details><summary data-i18n="q2"></summary><p data-i18n="r2"></p></details>
+<details><summary data-i18n="q3"></summary><p data-i18n="r3"></p></details>
+<details><summary data-i18n="q4"></summary><p data-i18n="r4"></p></details>
+</div>
+</div></section>
+
+<section id="contact"><div class="w two">
+<div><h2 data-i18n="kt"></h2><p class="sub" data-i18n="kx"></p></div>
+<form id="f" novalidate>
+<label><span data-i18n="l1"></span><input name="name" required autocomplete="name"></label>
+<label><span data-i18n="l2"></span><input name="email" type="email" required autocomplete="email"></label>
+<label><span data-i18n="l3"></span><input name="company" autocomplete="organization"></label>
+<label><span data-i18n="l4"></span><textarea name="message" required></textarea></label>
+<input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div><button class="btn p" type="submit" data-i18n="send"></button></div>
+<p id="fs" role="status"></p>
+</form>
+</div></section>
+</main>
+
+<footer><div class="w"><span>© <span id="yr"></span> Coreflux. </span><span data-i18n="fo"></span></div></footer>
+
+<script>
+/* ===== CONFIG: uzupełnij przed publikacją ===== */
+const CONFIG={
+  email:"kontakt@twojadomena.pl",   // adres, na który trafia formularz, gdy nie ma webhooka
+  webhook:"",                        // adres webhooka z Make.com (opcjonalnie)
+  botpressScript:""                  // adres skryptu inject z Botpressa (opcjonalnie)
+};
+
+const T={
+pl:{n1:"Jak działa",n2:"Pakiety",n3:"FAQ",n4:"Kontakt",
+h1:"Odpowiadamy Twoim klientom, kiedy Ty nie możesz",
+lead:"Chatboty dla firm, które odpowiadają na powtarzalne pytania, zbierają zapytania i przekazują rozmowę człowiekowi, gdy trzeba.",
+c1:"Umów 15 minut rozmowy",c2:"Zobacz, jak to działa",pick:"Wybierz branżę i zobacz przykładową rozmowę",
+i_shop:"Sklep internetowy",i_serv:"Usługi",i_est:"Nieruchomości",i_man:"Produkcja",
+pt:"Po godzinach pracy zapytania zostają bez odpowiedzi",
+p1:"Klient pisze wieczorem i trafia do konkurencji, która odpisała pierwsza.",
+p2:"Te same pytania wracają codziennie i zabierają czas zespołu.",
+p3:"Zapytania giną w skrzynkach, bo nikt nie ma kiedy ich uporządkować.",
+ht:"Od rozmowy do gotowego zgłoszenia u Ciebie",
+hx:"Bot prowadzi rozmowę i zbiera potrzebne dane. Automatyzacja zapisuje zgłoszenie w arkuszu lub wysyła je mailem. Gdy bot nie zna odpowiedzi, przekazuje rozmowę człowiekowi.",
+f1:"Rozmowa",f2:"Bot",f3:"Automatyzacja",f4:"Twój zespół",
+lt:"Porozmawiaj z prawdziwym botem",lx:"To nie nagranie. Wpisz własne pytanie i sprawdź, jak bot odpowiada.",
+lp:"Bot demo pojawi się tutaj po wpisaniu adresu skryptu Botpress w sekcji CONFIG pliku index.html.",
+prt:"Pakiety",prx:"Zaczynamy od krótkiego pilota, żeby sprawdzić bota na Twoich prawdziwych pytaniach.",
+a1:"Start",a1p:"od 990 zł",a1d:"Dla małych firm rozpoczynających automatyzację.",
+f_s1:"Jeden wyznaczony kanał",f_s2:"Najczęstsze pytania i FAQ",
+a2:"Biznes",a2p:"od 2 490 zł",a2d:"Pełna automatyzacja i integracja procesów.",
+f_b1:"Wiele scenariuszy obsługi",f_b2:"Zapis do Google Sheets / CRM",f_b3:"Przekazanie do człowieka",
+a3:"Indywidualny",a3p:"wycena",a3d:"Dla firm o specyficznych wymaganiach.",
+f_c1:"Własne procesy i API",f_c2:"Wielojęzyczność",
+choose:"Wybierz pakiet",
+anc:"Pracownik obsługi klienta to koszt rzędu kilku tysięcy złotych miesięcznie, a pracuje kilka godzin dziennie. Bot odpowiada całą dobę.",
+ft:"Najczęstsze pytania",
+q1:"Czy bot zastąpi mój zespół?",r1:"Nie. Przejmuje powtarzalne pytania, a trudniejsze sprawy przekazuje człowiekowi.",
+q2:"Ile trwa wdrożenie?",r2:"Prosty scenariusz można uruchomić w kilka dni. Dokładny czas ustalamy po rozmowie.",
+q3:"Co z danymi moich klientów?",r3:"Bot zbiera tylko to, o co pyta w rozmowie, a dane trafiają wyłącznie do Ciebie. Szczegóły ustalamy w umowie.",
+q4:"Czy bot mówi po polsku i angielsku?",r4:"Tak, obsługuje oba języki.",
+kt:"Opisz, co chcesz zautomatyzować",kx:"Odpiszemy z propozycją pilota.",
+l1:"Imię i nazwisko",l2:"E-mail",l3:"Firma",l4:"Co chcesz zautomatyzować?",send:"Wyślij zapytanie",
+ok:"Dziękujemy. Odpiszemy najszybciej, jak to możliwe.",err:"Nie udało się wysłać. Spróbuj ponownie lub napisz na ",req:"Uzupełnij imię, e-mail i wiadomość.",
+fo:"Dane z formularza służą wyłącznie do odpowiedzi na zapytanie.",dh:"Asystent Coreflux · demo",
+stream_title:"OSTATNI PAYLOAD DO SYSTEMU:"},
+en:{n1:"How it works",n2:"Plans",n3:"FAQ",n4:"Contact",
+h1:"We answer your customers when you can’t",
+lead:"Chatbots for businesses that handle repeated questions, collect enquiries and hand the conversation to a person when needed.",
+c1:"Book a 15-minute call",c2:"See how it works",pick:"Pick an industry to see a sample conversation",
+i_shop:"Online store",i_serv:"Services",i_est:"Real estate",i_man:"Manufacturing",
+pt:"After working hours, enquiries go unanswered",
+p1:"A customer writes in the evening and ends up with the competitor who replied first.",
+p2:"The same questions come back every day and take up your team’s time.",
+p3:"Enquiries get lost in inboxes because nobody has time to sort them.",
+ht:"From conversation to a ready request on your side",
+hx:"The bot runs the conversation and collects the details. Automation saves the request to a spreadsheet or sends it by email. When the bot doesn’t know the answer, it hands the chat to a person.",
+f1:"Conversation",f2:"Bot",f3:"Automation",f4:"Your team",
+lt:"Talk to a real bot",lx:"This isn’t a recording. Type your own question and see how the bot answers.",
+lp:"The demo bot will appear here once you add the Botpress script URL in the CONFIG section of index.html.",
+prt:"Plans",prx:"We start with a short pilot to test the bot on your real questions.",
+a1:"Start",a1p:"from 990 PLN",a1d:"For small businesses starting automation.",
+f_s1:"One designated channel",f_s2:"Common FAQ handling",
+a2:"Business",a2p:"from 2,490 PLN",a2d:"Full automation and process integration.",
+f_b1:"Multiple conversation flows",f_b2:"Save to Google Sheets / CRM",f_b3:"Human handover logic",
+a3:"Custom",a3p:"quote",a3d:"For businesses with specific requirements.",
+f_c1:"Custom APIs & processes",f_c2:"Multi-language support",
+choose:"Choose plan",
+anc:"A customer support employee costs several thousand zloty a month and works a few hours a day. The bot answers around the clock.",
+ft:"Common questions",
+q1:"Will the bot replace my team?",r1:"No. It takes the repeated questions and hands harder cases to a person.",
+q2:"How long does setup take?",r2:"A simple scenario can go live in a few days. We confirm the exact time after a call.",
+q3:"What happens to my customers’ data?",r3:"The bot collects only what it asks in the conversation, and the data goes only to you. We agree the details in the contract.",
+q4:"Does the bot speak Polish and English?",r4:"Yes, it supports both.",
+kt:"Tell us what you want to automate",kx:"We’ll reply with a pilot proposal.",
+l1:"Full name",l2:"Email",l3:"Company",l4:"What do you want to automate?",send:"Send enquiry",
+ok:"Thank you. We’ll reply as soon as we can.",err:"Sending failed. Try again or write to ",req:"Please fill in name, email and message.",
+fo:"Form data is used only to reply to your enquiry.",dh:"Coreflux assistant · demo",
+stream_title:"LATEST SYSTEM PAYLOAD:"}
+};
+
+const SC={
+shop:{
+  pl:[
+    ["u","Czy zamówienie złożone dziś zdążę dostać przed weekendem?"],
+    ["b","Tak, jeśli zamówisz do 14:00, wyślemy je dziś kurierem. Podaj kod pocztowy, a sprawdzę termin.", {status:"qualifying", intent:"delivery_check"}],
+    ["u","80-001"],
+    ["b","Dostawa do Gdańska: piątek lub sobota. Chcesz, żebym przygotował zamówienie?", {status:"lead_ready", postal:"80-001", city:"Gdańsk"}]
+  ],
+  en:[
+    ["u","If I order today, will it arrive before the weekend?"],
+    ["b","Yes, orders placed before 2 pm ship today by courier. Give me your postcode and I’ll check the date.", {status:"qualifying", intent:"delivery_check"}],
+    ["u","SW1A 1AA"],
+    ["b","Delivery to London: Friday or Saturday. Want me to prepare the order?", {status:"lead_ready", postal:"SW1A 1AA", city:"London"}]
+  ]
+},
+serv:{
+  pl:[
+    ["u","Chcę się umówić na wycenę remontu łazienki."],
+    ["b","Chętnie. Jaki jest metraż łazienki i w jakim mieście mieszkasz?", {status:"qualifying", intent:"quote_request"}],
+    ["u","6 m², Poznań"],
+    ["b","Mamy wolne terminy we wtorek i czwartek. Który wybierasz? Potem poproszę o numer telefonu.", {status:"lead_ready", size:"6m2", city:"Poznań"}]
+  ],
+  en:[
+    ["u","I’d like a quote for a bathroom renovation."],
+    ["b","Happy to help. What size is the bathroom and which city are you in?", {status:"qualifying", intent:"quote_request"}],
+    ["u","6 m², Manchester"],
+    ["b","We have slots on Tuesday and Thursday. Which suits you? Then I’ll ask for a phone number.", {status:"lead_ready", size:"6m2", city:"Manchester"}]
+  ]
+},
+est:{
+  pl:[
+    ["u","Szukam 3 pokoi na Mokotowie do 1,2 mln zł."],
+    ["b","Mam kilka ofert spełniających te kryteria. Czy ważny jest balkon lub miejsce w garażu?", {status:"qualifying", intent:"real_estate"}],
+    ["u","Balkon tak, garaż nie"],
+    ["b","Przesyłam 3 oferty z balkonem. Mogę umówić oglądanie z doradcą. Jaki termin ci pasuje?", {status:"lead_ready", district:"Mokotów", budget:"1.2m"}]
+  ],
+  en:[
+    ["u","I’m looking for 3 bedrooms in Kensington under £900k."],
+    ["b","I have a few listings that match. Do you need a balcony or parking?", {status:"qualifying", intent:"real_estate"}],
+    ["u","Balcony yes, parking no"],
+    ["b","Sending 3 listings with a balcony. I can book a viewing with an agent. What time suits you?", {status:"lead_ready", area:"Kensington", budget:"900k"}]
+  ]
+},
+man:{
+  pl:[
+    ["u","Potrzebuję oferty na 500 sztuk elementu z aluminium."],
+    ["b","Podaj proszę rysunek lub wymiary i wymaganą tolerancję. Przekażę zapytanie działowi technicznemu.", {status:"qualifying", intent:"manufacturing"}],
+    ["u","Wysyłam rysunek PDF"],
+    ["b","Dziękuję, mam plik. Handlowiec odpisze do końca dnia roboczego. Na jaki e-mail?", {status:"lead_ready", quantity:500, material:"aluminium"}]
+  ],
+  en:[
+    ["u","I need a quote for 500 aluminium parts."],
+    ["b","Please send a drawing or dimensions and the required tolerance. I’ll pass the enquiry to our technical team.", {status:"qualifying", intent:"manufacturing"}],
+    ["u","Sending a PDF drawing"],
+    ["b","Thanks, I have the file. A sales rep will reply by end of business day. Which email?", {status:"lead_ready", quantity:500, material:"aluminium"}]
+  ]
+}
+};
+const IND=["shop","serv","est","man"],IK={shop:"i_shop",serv:"i_serv",est:"i_est",man:"i_man"};
+
+const $=s=>document.querySelector(s),log=$("#log"),chips=$("#chips"),jsonOutput=$("#json-output");
+const red=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+let lang="pl",ind="shop",tok=0;
+
+IND.forEach(k=>{const b=document.createElement("button");b.type="button";b.dataset.k=k;b.onclick=()=>{ind=k;mark();play()};chips.appendChild(b)});
+function mark(){chips.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===ind))}
+
+function add(role,text,typing){const e=document.createElement("div");e.className="m "+role+(typing?" ty":"");if(typing)e.innerHTML="<i></i><i></i><i></i>";else e.textContent=text;log.appendChild(e);log.scrollTop=log.scrollHeight;return e}
+async function play(){
+  const my=++tok;log.innerHTML="";
+  jsonOutput.textContent = JSON.stringify({ status: "initializing_session", industry: ind }, null, 2);
+  
+  for(const item of SC[ind][lang]){
+    const r = item[0], t = item[1], meta = item[2];
+    if(my!==tok)return;
+    if(r==="b"){
+      const e=add("b","",true);
+      await wait(red?0:850);
+      if(my!==tok)return;
+      e.classList.remove("ty");
+      e.textContent=t;
+      log.scrollTop=log.scrollHeight;
+      if(meta){
+        jsonOutput.textContent = JSON.stringify({
+          timestamp: new Date().toISOString(),
+          industry: ind,
+          ...meta
+        }, null, 2);
+      }
+    } else {
+      await wait(red?0:650);
+      if(my!==tok)return;
+      add("u",t);
+    }
+  }
+}
+
+function setLang(l){
+  lang=l;document.documentElement.lang=l;
+  document.querySelectorAll("[data-i18n]").forEach(e=>{
+    if(T[l][e.dataset.i18n]) e.textContent=T[l][e.dataset.i18n];
+  });
+  chips.querySelectorAll("button").forEach(b=>b.textContent=T[l][IK[b.dataset.k]]);
+  $("#dh").textContent=T[l].dh;
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===l));
+  document.title="Coreflux · "+T[l].h1;
+  try{localStorage.setItem("cf-lang",l)}catch(e){}
+  mark();play();
+}
+document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>setLang(b.dataset.l));
+
+new IntersectionObserver((en,ob)=>en.forEach(x=>{if(x.isIntersecting){x.target.classList.add("go");ob.unobserve(x.target)}}),{threshold:.4}).observe($("#flow"));
+
+$("#yr").textContent=new Date().getFullYear();
+
+if(CONFIG.botpressScript){const s=document.createElement("script");s.src=CONFIG.botpressScript;s.defer=true;document.body.appendChild(s);$("#live").style.display="none"}
+
+$("#f").addEventListener("submit",async ev=>{
+  ev.preventDefault();
+  const f=ev.target,d=Object.fromEntries(new FormData(f)),st=$("#fs");
+  if(d.website)return;
+  if(!d.name||!d.message||!/^\S+@\S+\.\S+$/.test(d.email||"")){st.textContent=T[lang].req;return}
+  delete d.website;d.lang=lang;
+  if(CONFIG.webhook){
+    try{const r=await fetch(CONFIG.webhook,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)});if(!r.ok)throw 0;f.reset();st.textContent=T[lang].ok}
+    catch(e){st.textContent=T[lang].err+CONFIG.email+"."}
+  }else{
+    location.href="mailto:"+CONFIG.email+"?subject="+encodeURIComponent("Coreflux: "+d.name)+"&body="+encodeURIComponent(d.message+"\n\n"+d.name+"\n"+d.email+"\n"+(d.company||""));
+    st.textContent=T[lang].ok;
+  }
+});
+
+let saved=null;try{saved=localStorage.getItem("cf-lang")}catch(e){}
+setLang(saved||((navigator.language||"").toLowerCase().startsWith("pl")?"pl":"en"));
+</script>
+</body>
+</html>
