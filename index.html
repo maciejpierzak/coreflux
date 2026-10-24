@@ -135,7 +135,7 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
 .price-box{background:#f8f9fa;padding:12px;border-radius:var(--r);border:1px solid var(--line);margin-bottom:14px;font-size:15px}
 .price-box span{font-weight:700;color:var(--ink)}
 
-/* --- WIDGET CZATU (CZYSTY UKŁAD BEZ MARGINESÓW) --- */
+/* --- WIDGET CZATU COREFLUX --- */
 #cf-chat-toggle {
   position: fixed;
   right: 20px;
@@ -145,10 +145,10 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
   height: 54px;
   border-radius: 50%;
   border: 0;
-  background: #1e3a8a;
-  color: #ffffff;
+  background: var(--amb);
+  color: var(--ink);
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 16px rgba(22,34,46,0.28);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,7 +156,7 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
 }
 #cf-chat-toggle:hover {
   transform: scale(1.06);
-  background: #2563eb;
+  background: var(--amb2);
 }
 
 #cf-chat-panel {
@@ -168,15 +168,15 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
   max-width: calc(100vw - 32px);
   height: 580px;
   max-height: calc(100dvh - 100px);
-  background: #18181b;
-  border: 1px solid #27272a;
+  background: var(--dark);
+  border: 1px solid #2a3846;
   border-radius: 16px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 16px 40px rgba(22,34,46,0.35);
   display: none;
   flex-direction: column;
   overflow: hidden;
   font-family: system-ui, -apple-system, sans-serif;
-  color: #e4e4e7;
+  color: #e8edf2;
 }
 #cf-chat-panel.cf-open {
   display: flex;
@@ -204,7 +204,7 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #6366f1;
+  background: var(--amb);
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -228,7 +228,7 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
 }
 .bp-head-sub {
   font-size: 11.5px;
-  color: #9ca3af;
+  color: #9fb0c0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -253,7 +253,7 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
 }
 .bp-icon-btn:hover {
   color: #ffffff;
-  background: #27272a;
+  background: #223140;
 }
 
 /* OBSZAR WIADOMOŚCI - WYPEŁNIA CAŁĄ WOLNĄ PRZESTRZEŃ */
@@ -331,18 +331,18 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
   word-break: break-word;
 }
 .bp-msg-row.bot .bp-msg-bubble {
-  background: #27272a;
-  color: #f3f4f6;
+  background: #223140;
+  color: #e8edf2;
   border-bottom-left-radius: 2px;
 }
 .bp-msg-row.user .bp-msg-bubble {
-  background: #2563eb;
-  color: #ffffff;
+  background: var(--amb);
+  color: var(--ink);
   border-bottom-right-radius: 2px;
 }
 .bp-msg-row.error .bp-msg-bubble {
-  background: #7f1d1d;
-  color: #fecaca;
+  background: #542c2c;
+  color: #ffd9d9;
 }
 
 /* ANIMACJA PISANIA */
@@ -355,7 +355,7 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
 .bp-dot {
   width: 5px;
   height: 5px;
-  background-color: #9ca3af;
+  background-color: #9fb0c0;
   border-radius: 50%;
   animation: bpPulse 1.4s infinite ease-in-out both;
 }
@@ -386,7 +386,7 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
   border: 1px solid #3f3f46;
 }
 .bp-input-wrapper:focus-within {
-  border-color: #6366f1;
+  border-color: var(--amb);
 }
 
 #cf-chat-input {
@@ -416,7 +416,7 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
   transition: color 0.15s, background 0.15s;
   flex-shrink: 0;
 }
-.bp-mic-btn:hover { color: #ffffff; background: #3f3f46; }
+.bp-mic-btn:hover { color: #ffffff; background: #2a3846; }
 .bp-mic-btn.recording { color: #ef4444; animation: pulseMic 1s infinite; }
 .bp-mic-btn.tts-active { color: #f2b01e; }
 @keyframes pulseMic { 50% { opacity: 0.5; } }
@@ -435,7 +435,7 @@ footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);fon
   transition: background 0.15s, transform 0.15s;
   flex-shrink: 0;
 }
-.bp-send-btn:hover { background: #4f46e5; transform: scale(1.05); }
+.bp-send-btn:hover { background: var(--amb2); transform: scale(1.05); }
 .bp-send-btn:disabled { opacity: 0.5; cursor: wait; }
 
 @media(max-width: 480px) {
@@ -1136,7 +1136,7 @@ $("#f").addEventListener("submit", async ev => {
   }
 });
 
-/* LOGIKA CZATU BOTPRESS 1:1 & TTS / STT NA JEDNYM PRZYCISKU */
+/* LOGIKA WŁASNEGO CZATU COREFLUX + TTS / STT */
 const CHAT_API = "https://coreflux-bot-api.maciejpierzak786.workers.dev";
 const panel = $("#cf-chat-panel"), toggle = $("#cf-chat-toggle"), chatMessages = $("#cf-chat-messages"), chatInput = $("#cf-chat-input"), chatForm = $("#cf-chat-form"), chatSend = $("#cf-chat-send"), resetBtn = $("#bp-reset-btn");
 const micTrigger = $("#bp-mic-trigger");
