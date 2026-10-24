@@ -10,802 +10,97 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316222e'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23f2b01e'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
-
-<!-- Skrypty Botpress (Widget w prawym dolnym rogu) -->
-<script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
-<script src="https://files.bpcontent.cloud/2026/10/23/17/20261023172352-Y9G3N2QD.js" defer></script>
-
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#eef1f4;--pane:#fff;--ink:#16222e;--mut:#56616d;--line:#d3d9e0;--dark:#16222e;--amb:#f2b01e;--amb2:#d99a0c;--r:6px}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
-  font:400 17px/1.6 "IBM Plex Sans",system-ui,sans-serif;
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
-  user-select:none;
-}
-
-input, textarea {
-  -webkit-user-select:text;
-  -moz-user-select:text;
-  -ms-user-select:text;
-  user-select:text;
-}
-
-h1,h2,h3{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;line-height:1.1;letter-spacing:-.02em;margin:0}
-h2{font-size:clamp(28px,3.4vw,40px);font-weight:700}
-.w{max-width:1120px;margin:0 auto;padding:0 24px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;line-height:1.1;letter-spacing:-.02em;margin:0}h2{font-size:clamp(28px,3.4vw,40px);font-weight:700}.w{max-width:1120px;margin:0 auto;padding:0 24px}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--amb);outline-offset:2px}
-header{position:sticky;top:0;z-index:5;background:rgba(238,241,244,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;gap:20px;height:64px}
-.logo{font:700 22px "Bricolage Grotesque",sans-serif;text-decoration:none;color:var(--ink);margin-right:auto}
-nav{display:flex;gap:20px;align-items:center}
-nav a{color:var(--mut);text-decoration:none;font-size:15px}
-nav a:hover{color:var(--ink)}
-.lang{display:flex;gap:4px;font-size:14px}
-.lang button{border:0;background:none;color:var(--mut);padding:4px 6px;cursor:pointer;font:inherit;border-bottom:2px solid transparent}
-.lang button[aria-pressed=true]{color:var(--ink);border-color:var(--amb)}
-
-/* Przycisk logowania w menu */
-.btn-login{background:var(--dark);color:#fff!important;padding:8px 14px;border-radius:var(--r);font-size:14px;font-weight:500;cursor:pointer;border:0}
-.btn-login:hover{background:#2a3846}
-
-.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;padding:72px 0 88px;align-items:center}
-h1{font-size:clamp(38px,5.4vw,66px);font-weight:700}
-.lead{color:var(--mut);max-width:34em;margin:22px 0 32px;font-size:19px}
-.btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-block;padding:14px 22px;border-radius:var(--r);font-weight:500;text-decoration:none;border:1px solid var(--ink);color:var(--ink);transition:background .15s;cursor:pointer;font-family:inherit;font-size:16px;background:none;text-align:center}
-.btn.p{background:var(--amb);border-color:var(--amb)}
-.btn.p:hover{background:var(--amb2);border-color:var(--amb2)}
-.btn:not(.p):hover{background:#fff}
-.demo{background:var(--dark);color:#e8edf2;border-radius:14px;padding:18px;display:flex;flex-direction:column;min-height:520px}
-.dh{font-size:14px;color:#9fb0c0;padding:2px 4px 14px;border-bottom:1px solid #2a3846;display:flex;justify-content:space-between;align-items:center}
-.dh-status{font-size:11px;font-family:monospace;background:#223140;padding:2px 6px;border-radius:4px;color:#f2b01e}
-.log{flex:1;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:16px 2px;max-height:260px}
-.m{max-width:86%;padding:10px 14px;border-radius:12px;font-size:15px;line-height:1.45;animation:in .25s ease}
-.m.u{align-self:flex-end;background:var(--amb);color:#16222e;border-bottom-right-radius:3px}
-.m.b{align-self:flex-start;background:#223140;border-bottom-left-radius:3px}
-@keyframes in{from{opacity:0;transform:translateY(6px)}}
-.ty i{display:inline-block;width:6px;height:6px;margin:0 2px;border-radius:50%;background:#9fb0c0;animation:bl 1s infinite}
-.ty i:nth-child(2){animation-delay:.15s}.ty i:nth-child(3){animation-delay:.3s}
-@keyframes bl{50%{opacity:.25}}
-.stream-box{border-top:1px solid #2a3846;padding-top:10px;margin-top:4px}
-.stream-title{font-size:11px;font-family:monospace;color:#9fb0c0;margin-bottom:6px}
-.stream-code{background:#111822;padding:8px 10px;border-radius:4px;font-family:monospace;font-size:11px;color:#f2b01e;overflow-x:auto;margin:0;min-height:48px}
-.chips{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid #2a3846;padding-top:12px;margin-top:auto}
-.chips p{width:100%;margin:0 0 2px;font-size:13px;color:#9fb0c0}
-.chips button{background:none;border:1px solid #3a4b5c;color:#e8edf2;border-radius:99px;padding:6px 14px;font:inherit;font-size:14px;cursor:pointer;transition:background .15s}
-.chips button:hover{background:#223140}
-.chips button[aria-pressed=true]{background:var(--amb);border-color:var(--amb);color:#16222e}
-section{padding:80px 0;border-top:1px solid var(--line)}
-.two{display:grid;grid-template-columns:1fr 1.3fr;gap:56px}
-.rows p{margin:0;padding:22px 0;border-top:1px solid var(--line);font-size:19px;display:flex;gap:16px}
-.rows p span{color:var(--mut);font-weight:500;font-family:"Bricolage Grotesque",sans-serif}
-.rows p:first-child{border-top:0;padding-top:4px}
-.sub{color:var(--mut);max-width:38em;margin:16px 0 0}
-.flow{overflow-x:auto;margin-top:36px}
-.flow svg{min-width:680px;width:100%;height:auto;display:block}
-.flow text{font:500 17px "IBM Plex Sans",sans-serif;fill:var(--ink)}
-.flow rect{fill:var(--pane);stroke:var(--ink);stroke-width:1.5}
-.flow .ln{stroke:var(--ink);stroke-width:1.5;fill:none;stroke-dasharray:1;stroke-dashoffset:1}
-.flow.go .ln{animation:dr 1.1s ease forwards}
-.flow.go .ln:nth-of-type(2){animation-delay:.4s}.flow.go .ln:nth-of-type(3){animation-delay:.8s}
-@keyframes dr{to{stroke-dashoffset:0}}
-
-/* PAKIETY I PROMOCJA */
-.promo-banner{background:#16222e;color:#f2b01e;text-align:center;padding:12px;font-weight:700;font-size:15px;border-radius:var(--r);margin-bottom:24px;border:1px dashed var(--amb)}
-.plans{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:20px;margin-top:20px;align-items:stretch}
-.plan{border:1px solid var(--line);background:var(--pane);border-radius:var(--r);padding:28px;display:flex;flex-direction:column}
-.plan.f{background:var(--dark);color:#e8edf2;border-color:var(--dark);padding-top:36px;padding-bottom:36px}
-.plan h3{font-size:24px}
-.plan .pr-old{text-decoration:line-through;color:var(--mut);font-size:16px;margin-top:10px}
-.plan.f .pr-old{color:#8b9bb0}
-.plan .pr{font:700 30px "Bricolage Grotesque",sans-serif;margin:2px 0 4px;color:var(--amb)}
-.plan p{margin:0 0 20px;color:var(--mut);font-size:16px}
-.plan.f p{color:#b4c2cf}
-.plan-features{list-style:none;padding:0;margin:0 0 24px;font-size:15px;color:var(--mut);flex-grow:1}
-.plan.f .plan-features{color:#b4c2cf}
-.plan-features li{margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.plan-features li::before{content:"—";color:var(--amb)}
-.tag{display:inline-block;background:var(--amb);color:#16222e;border-radius:99px;padding:2px 12px;font-size:13px;font-weight:500;margin-bottom:12px}
-.anchor{margin-top:28px;color:var(--mut);max-width:40em}
-
-details{border-top:1px solid var(--line);padding:18px 0}
-details:last-child{border-bottom:1px solid var(--line)}
-summary{cursor:pointer;font-weight:500;font-size:18px}
-details p{margin:10px 0 0;color:var(--mut)}
-form{display:grid;gap:14px;max-width:560px}
-label{font-size:15px;color:var(--mut);display:grid;gap:6px}
-input,textarea{font:inherit;padding:12px 14px;border:1px solid #aeb8c2;border-radius:var(--r);background:#fff;color:var(--ink)}
-textarea{min-height:120px;resize:vertical}
-.hp{position:absolute;left:-9999px}
-#fs, #modal-status, #login-status{min-height:24px;margin:0;font-weight:500}
-footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);font-size:14px}
-
-/* STYL DLA MODALI (ZAMÓWIENIE I LOGOWANIE) */
-.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(22,34,46,0.7);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
-.modal-overlay.active{display:flex}
-.modal{background:var(--pane);border-radius:12px;width:100%;max-width:520px;padding:32px;box-shadow:0 20px 40px rgba(0,0,0,0.2);position:relative;animation:modalIn .2s ease}
-@keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-.modal-close{position:absolute;top:18px;right:20px;background:none;border:none;font-size:24px;cursor:pointer;color:var(--mut)}
-.modal-title{font-size:26px;margin-bottom:6px}
-.modal-badge{display:inline-block;background:var(--amb);color:#16222e;font-size:14px;font-weight:700;padding:4px 10px;border-radius:4px;margin-bottom:18px}
-.coupon-box{display:flex;gap:8px;margin-bottom:14px}
-.coupon-box input{flex:1}
-.coupon-box button{padding:0 16px;background:var(--dark);color:#fff;border:0;border-radius:var(--r);cursor:pointer;font-weight:500}
-.price-box{background:#f8f9fa;padding:12px;border-radius:var(--r);border:1px solid var(--line);margin-bottom:14px;font-size:15px}
-.price-box span{font-weight:700;color:var(--ink)}
-
-@media(max-width:860px){.hero,.two,.plans{grid-template-columns:1fr}.hero{padding:44px 0 56px;gap:36px}nav{display:none}.demo{min-height:auto}section{padding:56px 0}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.flow .ln{stroke-dashoffset:0}html{scroll-behavior:auto}}
+header{position:sticky;top:0;z-index:5;background:rgba(238,241,244,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}.nav{display:flex;align-items:center;gap:26px;height:64px}.logo{font:700 22px "Bricolage Grotesque",sans-serif;text-decoration:none;color:var(--ink);margin-right:auto}nav{display:flex;gap:26px}nav a{color:var(--mut);text-decoration:none;font-size:15px}nav a:hover{color:var(--ink)}.lang{display:flex;gap:4px;font-size:14px}.lang button{border:0;background:none;color:var(--mut);padding:4px 6px;cursor:pointer;font:inherit;border-bottom:2px solid transparent}.lang button[aria-pressed=true]{color:var(--ink);border-color:var(--amb)}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;padding:72px 0 88px;align-items:center}h1{font-size:clamp(38px,5.4vw,66px);font-weight:700}.lead{color:var(--mut);max-width:34em;margin:22px 0 32px;font-size:19px}.btns{display:flex;gap:12px;flex-wrap:wrap}.btn{display:inline-block;padding:14px 22px;border-radius:var(--r);font-weight:500;text-decoration:none;border:1px solid var(--ink);color:var(--ink);transition:background .15s;cursor:pointer;font-family:inherit;font-size:16px;background:none;text-align:center}.btn.p{background:var(--amb);border-color:var(--amb)}.btn.p:hover{background:var(--amb2);border-color:var(--amb2)}.btn:not(.p):hover{background:#fff}
+.demo{background:var(--dark);color:#e8edf2;border-radius:14px;padding:18px;display:flex;flex-direction:column;min-height:520px}.dh{font-size:14px;color:#9fb0c0;padding:2px 4px 14px;border-bottom:1px solid #2a3846;display:flex;justify-content:space-between;align-items:center;gap:8px}.dh-status{font-size:11px;font-family:monospace;background:#223140;padding:2px 6px;border-radius:4px;color:#f2b01e}.log{flex:1;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:16px 2px;max-height:260px}.m{max-width:86%;padding:10px 14px;border-radius:12px;font-size:15px;line-height:1.45;animation:in .25s ease}.m.u{align-self:flex-end;background:var(--amb);color:#16222e;border-bottom-right-radius:3px}.m.b{align-self:flex-start;background:#223140;border-bottom-left-radius:3px}@keyframes in{from{opacity:0;transform:translateY(6px)}}.stream-box{border-top:1px solid #2a3846;padding-top:10px;margin-top:4px}.stream-title{font-size:11px;font-family:monospace;color:#9fb0c0;margin-bottom:6px}.stream-code{background:#111822;padding:8px 10px;border-radius:4px;font-family:monospace;font-size:11px;color:#f2b01e;overflow-x:auto;margin:0;min-height:48px}.chips{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid #2a3846;padding-top:12px;margin-top:auto}.chips p{width:100%;margin:0 0 2px;font-size:13px;color:#9fb0c0}.chips button{background:none;border:1px solid #3a4b5c;color:#e8edf2;border-radius:99px;padding:6px 14px;font:inherit;font-size:14px;cursor:pointer;transition:background .15s}.chips button:hover{background:#223140}.chips button[aria-pressed=true]{background:var(--amb);border-color:var(--amb);color:#16222e}
+section{padding:80px 0;border-top:1px solid var(--line)}.two{display:grid;grid-template-columns:1fr 1.3fr;gap:56px}.rows p{margin:0;padding:22px 0;border-top:1px solid var(--line);font-size:19px;display:flex;gap:16px}.rows p span:first-child{color:var(--mut);font-weight:500;font-family:"Bricolage Grotesque",sans-serif;flex-shrink:0}.rows p:first-child{border-top:0;padding-top:4px}.sub{color:var(--mut);max-width:38em;margin:16px 0 0}.flow{overflow-x:auto;margin-top:36px}.flow svg{min-width:680px;width:100%;height:auto;display:block}.flow text{font:500 17px "IBM Plex Sans",sans-serif;fill:var(--ink)}.flow rect{fill:var(--pane);stroke:var(--ink);stroke-width:1.5}.flow .ln{stroke:var(--ink);stroke-width:1.5;fill:none;stroke-dasharray:1;stroke-dashoffset:1}.flow.go .ln{animation:dr 1.1s ease forwards}.flow.go .ln:nth-of-type(2){animation-delay:.4s}.flow.go .ln:nth-of-type(3){animation-delay:.8s}@keyframes dr{to{stroke-dashoffset:0}}
+.plans{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:20px;margin-top:40px;align-items:stretch}.plan{border:1px solid var(--line);background:var(--pane);border-radius:var(--r);padding:28px;display:flex;flex-direction:column}.plan.f{background:var(--dark);color:#e8edf2;border-color:var(--dark);padding-top:36px;padding-bottom:36px}.plan h3{font-size:24px}.plan .pr{font:700 30px "Bricolage Grotesque",sans-serif;margin:14px 0 4px}.plan p{margin:0 0 20px;color:var(--mut);font-size:16px}.plan.f p{color:#b4c2cf}.plan-features{list-style:none;padding:0;margin:0 0 24px;font-size:15px;color:var(--mut);flex-grow:1}.plan.f .plan-features{color:#b4c2cf}.plan-features li{margin-bottom:8px;display:flex;align-items:center;gap:8px}.plan-features li::before{content:"—";color:var(--amb)}.tag{display:inline-block;background:var(--amb);color:#16222e;border-radius:99px;padding:2px 12px;font-size:13px;font-weight:500;margin-bottom:12px}.anchor{margin-top:28px;color:var(--mut);max-width:40em}
+details{border-top:1px solid var(--line);padding:18px 0}details:last-child{border-bottom:1px solid var(--line)}summary{cursor:pointer;font-weight:500;font-size:18px}details p{margin:10px 0 0;color:var(--mut)}form.contact-form{display:grid;gap:14px;max-width:560px}label{font-size:15px;color:var(--mut);display:grid;gap:6px}input,textarea{font:inherit;padding:12px 14px;border:1px solid #aeb8c2;border-radius:var(--r);background:#fff;color:var(--ink)}textarea{min-height:120px;resize:vertical}.hp{position:absolute;left:-9999px}#fs,#modal-status{min-height:24px;margin:0;font-weight:500}footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--mut);font-size:14px}
+.modal-overlay{position:fixed;inset:0;background:rgba(22,34,46,.7);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}.modal-overlay.active{display:flex}.modal{background:var(--pane);border-radius:12px;width:100%;max-width:520px;max-height:90dvh;overflow:auto;padding:32px;box-shadow:0 20px 40px #0003;position:relative;animation:modalIn .2s ease}@keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.modal-close{position:absolute;top:18px;right:20px;background:none;border:none;font-size:24px;cursor:pointer;color:var(--mut)}.modal-title{font-size:26px;margin-bottom:6px}.modal-badge{display:inline-block;background:var(--amb);color:#16222e;font-size:14px;font-weight:700;padding:4px 10px;border-radius:4px;margin-bottom:18px}
+#cf-chat-toggle{position:fixed;right:24px;bottom:24px;z-index:9999;border:0;border-radius:50px;padding:15px 22px;background:var(--amb);color:var(--ink);font:700 16px "IBM Plex Sans",sans-serif;cursor:pointer;box-shadow:0 8px 28px #16222e30}#cf-chat-panel{position:fixed;right:24px;bottom:88px;z-index:9999;width:min(380px,calc(100vw - 32px));height:min(540px,calc(100dvh - 120px));background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 50px #16222e30;display:none;flex-direction:column;overflow:hidden;font:400 15px/1.5 "IBM Plex Sans",sans-serif;color:var(--ink)}#cf-chat-panel.cf-open{display:flex}.cf-chat-head{background:var(--dark);color:white;padding:16px;display:flex;justify-content:space-between;align-items:center}.cf-chat-head strong{font-size:17px}#cf-chat-close{border:0;background:transparent;color:white;font-size:25px;cursor:pointer}#cf-chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}.cf-chat-msg{max-width:88%;padding:10px 13px;border-radius:12px;overflow-wrap:anywhere;white-space:pre-wrap}.cf-chat-msg.bot{align-self:flex-start;background:var(--bg)}.cf-chat-msg.user{align-self:flex-end;background:var(--amb)}.cf-chat-msg.error{align-self:flex-start;background:#fff0f0;color:#a12626}#cf-chat-form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}#cf-chat-input{min-width:0;flex:1;padding:11px;border:1px solid var(--line);border-radius:8px;font:inherit;user-select:text}#cf-chat-send{border:0;border-radius:8px;padding:0 15px;background:var(--amb);color:var(--ink);font-weight:700;cursor:pointer}#cf-chat-send:disabled{opacity:.55;cursor:wait}
+@media(max-width:860px){.hero,.two,.plans{grid-template-columns:1fr}.hero{padding:44px 0 56px;gap:36px}nav{display:none}.demo{min-height:auto}section{padding:56px 0}}@media(max-width:480px){#cf-chat-toggle{right:16px;bottom:16px}#cf-chat-panel{right:8px;bottom:76px;width:calc(100vw - 16px);height:min(540px,calc(100dvh - 96px))}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.flow .ln{stroke-dashoffset:0}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 <header><div class="w nav">
 <a class="logo" href="#top">Coreflux</a>
-<nav>
-<a href="#how" data-i18n="n1"></a>
-<a href="#plans" data-i18n="n2"></a>
-<a href="#faq" data-i18n="n3"></a>
-<a href="#contact" data-i18n="n4"></a>
-<button class="btn-login" onclick="openLoginModal()" data-i18n="login_btn">Strefa Klienta</button>
-</nav>
-<div class="lang" role="group" aria-label="Language"><button data-l="pl">PL</button><button data-l="en">EN</button></div>
+<nav><a href="#how" data-i18n="n1">Jak działa</a><a href="#plans" data-i18n="n2">Pakiety</a><a href="#faq" data-i18n="n3">FAQ</a><a href="#contact" data-i18n="n4">Kontakt</a></nav>
+<div class="lang" role="group" aria-label="Language"><button data-l="pl" aria-pressed="true">PL</button><button data-l="en" aria-pressed="false">EN</button></div>
 </div></header>
-
 <main id="top">
-<div class="w hero">
-<div>
-<h1 data-i18n="h1"></h1>
-<p class="lead" data-i18n="lead"></p>
-<div class="btns"><a class="btn p" href="#contact" data-i18n="c1"></a><a class="btn" href="#how" data-i18n="c2"></a></div>
-</div>
-<div class="demo">
-<div class="dh"><span id="dh"></span><span class="dh-status">● LIVE STREAM</span></div>
+<div class="w hero"><div>
+<h1 data-i18n="h1">Odpowiadamy Twoim klientom, kiedy Ty nie możesz</h1>
+<p class="lead" data-i18n="lead">Chatboty dla firm, które odpowiadają na powtarzalne pytania, zbierają zapytania i przekazują rozmowę człowiekowi, gdy trzeba.</p>
+<div class="btns"><a class="btn p" href="#contact" data-i18n="c1">Umów 15 minut rozmowy</a><a class="btn" href="#how" data-i18n="c2">Zobacz, jak to działa</a></div>
+</div><div class="demo">
+<div class="dh"><span id="dh">Asystent Coreflux · demo</span><span class="dh-status">● LIVE DEMO</span></div>
 <div class="log" id="log" aria-live="polite"></div>
-<div class="stream-box">
-  <div class="stream-title" data-i18n="stream_title">OSTATNI PAYLOAD DO SYSTEMU:</div>
-  <pre class="stream-code"><code id="json-output">{ "status": "czekam na zdarzenie..." }</code></pre>
-</div>
-<div class="chips" id="chips"><p data-i18n="pick"></p></div>
-</div>
-</div>
-
-<section><div class="w two">
-<h2 data-i18n="pt"></h2>
-<div class="rows">
-  <p><span>01</span><span data-i18n="p1"></span></p>
-  <p><span>02</span><span data-i18n="p2"></span></p>
-  <p><span>03</span><span data-i18n="p3"></span></p>
-</div>
-</div></section>
-
-<section id="how"><div class="w">
-<h2 data-i18n="ht"></h2>
-<p class="sub" data-i18n="hx"></p>
-<div class="flow" id="flow">
-<svg viewBox="0 0 880 110" role="img" aria-label="Flow">
-<rect x="10" y="27" width="170" height="56" rx="6"/><text x="95" y="61" text-anchor="middle" data-i18n="f1"></text>
-<rect x="240" y="27" width="170" height="56" rx="6"/><text x="325" y="61" text-anchor="middle" data-i18n="f2"></text>
-<rect x="470" y="27" width="170" height="56" rx="6"/><text x="555" y="61" text-anchor="middle" data-i18n="f3"></text>
-<rect x="700" y="27" width="170" height="56" rx="6"/><text x="785" y="61" text-anchor="middle" data-i18n="f4"></text>
-<path class="ln" pathLength="1" d="M180 55H240"/><path class="ln" pathLength="1" d="M410 55H470"/><path class="ln" pathLength="1" d="M640 55H700"/>
-</svg>
-</div>
-</div></section>
-
-<section id="plans"><div class="w">
-<h2 data-i18n="prt"></h2>
-<p class="sub" data-i18n="prx"></p>
-<div class="promo-banner">🔥 SPECJALNA PROMOCJA STARTOWA: -20% NA WSZYSTKE PAKIETY DLA MAŁYCH FIRM! UŻYJ KODU: <span style="color:#fff;background:#223140;padding:2px 8px;border-radius:4px;font-family:monospace;">START20</span></div>
+<div class="stream-box"><div class="stream-title" data-i18n="stream_title">OSTATNI PAYLOAD DO SYSTEMU:</div><pre class="stream-code"><code id="json-output">{ "status": "czekam na zdarzenie..." }</code></pre></div>
+<div class="chips" id="chips"><p data-i18n="pick">Wybierz branżę i zobacz przykładową rozmowę</p></div>
+</div></div>
+<section><div class="w two"><h2 data-i18n="pt">Po godzinach pracy zapytania zostają bez odpowiedzi</h2><div class="rows"><p><span>01</span><span data-i18n="p1">Klient pisze wieczorem i trafia do konkurencji, która odpisała pierwsza.</span></p><p><span>02</span><span data-i18n="p2">Te same pytania wracają codziennie i zabierają czas zespołu.</span></p><p><span>03</span><span data-i18n="p3">Zapytania giną w skrzynkach, bo nikt nie ma kiedy ich uporządkować.</span></p></div></div></section>
+<section id="how"><div class="w"><h2 data-i18n="ht">Od rozmowy do gotowego zgłoszenia u Ciebie</h2><p class="sub" data-i18n="hx">Bot prowadzi rozmowę i zbiera potrzebne dane. Automatyzacja zapisuje zgłoszenie w arkuszu lub wysyła je mailem. Gdy bot nie zna odpowiedzi, przekazuje rozmowę człowiekowi.</p>
+<div class="flow" id="flow"><svg viewBox="0 0 880 110" role="img" aria-label="Proces obsługi"><rect x="10" y="27" width="170" height="56" rx="6"/><text x="95" y="61" text-anchor="middle" data-i18n="f1">Rozmowa</text><rect x="240" y="27" width="170" height="56" rx="6"/><text x="325" y="61" text-anchor="middle" data-i18n="f2">Bot</text><rect x="470" y="27" width="170" height="56" rx="6"/><text x="555" y="61" text-anchor="middle" data-i18n="f3">Automatyzacja</text><rect x="700" y="27" width="170" height="56" rx="6"/><text x="785" y="61" text-anchor="middle" data-i18n="f4">Twój zespół</text><path class="ln" pathLength="1" d="M180 55H240"/><path class="ln" pathLength="1" d="M410 55H470"/><path class="ln" pathLength="1" d="M640 55H700"/></svg></div></div></section>
+<section id="plans"><div class="w"><h2 data-i18n="prt">Pakiety</h2><p class="sub" data-i18n="prx">Zaczynamy od krótkiego pilota, żeby sprawdzić bota na Twoich prawdziwych pytaniach.</p>
 <div class="plans">
-<div class="plan">
-  <h3 data-i18n="a1"></h3>
-  <div class="pr-old">790 zł</div>
-  <div class="pr">632 zł</div>
-  <p data-i18n="a1d"></p>
-  <ul class="plan-features">
-    <li data-i18n="f_s1"></li>
-    <li data-i18n="f_s2"></li>
-  </ul>
-  <button class="btn" onclick="openPackageModal('Start', 632)" data-i18n="choose">Wybierz pakiet</button>
-</div>
-<div class="plan f">
-  <span class="tag" data-i18n="top"></span>
-  <h3 data-i18n="a2"></h3>
-  <div class="pr-old" style="color:#8b9bb0">1 790 zł</div>
-  <div class="pr">1 432 zł</div>
-  <p data-i18n="a2d"></p>
-  <ul class="plan-features">
-    <li data-i18n="f_b1"></li>
-    <li data-i18n="f_b2"></li>
-    <li data-i18n="f_b3"></li>
-  </ul>
-  <button class="btn p" onclick="openPackageModal('Biznes', 1432)" data-i18n="choose">Wybierz pakiet</button>
-</div>
-<div class="plan">
-  <h3 data-i18n="a3"></h3>
-  <div class="pr-old">Wycena indywidualna</div>
-  <div class="pr" style="font-size:24px;margin:12px 0;">Od 2 200 zł</div>
-  <p data-i18n="a3d"></p>
-  <ul class="plan-features">
-    <li data-i18n="f_c1"></li>
-    <li data-i18n="f_c2"></li>
-  </ul>
-  <button class="btn" onclick="openPackageModal('Indywidualny', 2200)" data-i18n="choose">Wybierz pakiet</button>
-</div>
-</div>
-<p class="anchor" data-i18n="anc"></p>
-</div></section>
+<div class="plan"><h3 data-i18n="a1">Start</h3><div class="pr" data-i18n="a1p">od 990 zł</div><p data-i18n="a1d">Dla małych firm rozpoczynających automatyzację.</p><ul class="plan-features"><li data-i18n="f_s1">Jeden wyznaczony kanał</li><li data-i18n="f_s2">Najczęstsze pytania i FAQ</li></ul><button class="btn" onclick="openPackageModal('Start','od 990 zł')" data-i18n="choose">Wybierz pakiet</button></div>
+<div class="plan f"><span class="tag" data-i18n="top">Najczęściej wybierany</span><h3 data-i18n="a2">Biznes</h3><div class="pr" data-i18n="a2p">od 2 490 zł</div><p data-i18n="a2d">Pełna automatyzacja i integracja procesów.</p><ul class="plan-features"><li data-i18n="f_b1">Wiele scenariuszy obsługi</li><li data-i18n="f_b2">Zapis do Google Sheets / CRM</li><li data-i18n="f_b3">Przekazanie do człowieka</li></ul><button class="btn p" onclick="openPackageModal('Biznes','od 2 490 zł')" data-i18n="choose">Wybierz pakiet</button></div>
+<div class="plan"><h3 data-i18n="a3">Indywidualny</h3><div class="pr" data-i18n="a3p">wycena</div><p data-i18n="a3d">Dla firm o specyficznych wymaganiach.</p><ul class="plan-features"><li data-i18n="f_c1">Własne procesy i API</li><li data-i18n="f_c2">Wielojęzyczność</li></ul><button class="btn" onclick="openPackageModal('Indywidualny','Wycena indywidualna')" data-i18n="choose">Wybierz pakiet</button></div>
+</div><p class="anchor" data-i18n="anc">Pracownik obsługi klienta to koszt rzędu kilku tysięcy złotych miesięcznie, a pracuje kilka godzin dziennie. Bot odpowiada całą dobę.</p></div></section>
+<section id="faq"><div class="w two"><h2 data-i18n="ft">Najczęstsze pytania</h2><div>
+<details><summary data-i18n="q1">Czy bot zastąpi mój zespół?</summary><p data-i18n="r1">Nie. Przejmuje powtarzalne pytania, a trudniejsze sprawy przekazuje człowiekowi.</p></details>
+<details><summary data-i18n="q2">Ile trwa wdrożenie?</summary><p data-i18n="r2">Prosty scenariusz można uruchomić w kilka dni. Dokładny czas ustalamy po rozmowie.</p></details>
+<details><summary data-i18n="q3">Co z danymi moich klientów?</summary><p data-i18n="r3">Bot zbiera tylko to, o co pyta w rozmowie, a dane trafiają wyłącznie do Ciebie. Szczegóły ustalamy w umowie.</p></details>
+<details><summary data-i18n="q4">Czy bot mówi po polsku i angielsku?</summary><p data-i18n="r4">Tak, obsługuje oba języki.</p></details>
+</div></div></section>
+<section id="contact"><div class="w two"><div><h2 data-i18n="kt">Opisz, co chcesz zautomatyzować</h2><p class="sub" data-i18n="kx">Odpiszemy z propozycją pilota.</p></div>
+<form class="contact-form" id="f" novalidate><label><span data-i18n="l1">Imię i nazwisko</span><input name="name" required autocomplete="name" placeholder="Jan Kowalski"></label><label><span data-i18n="l2">E-mail</span><input name="email" type="email" required autocomplete="email" placeholder="jan@firma.pl"></label><label><span data-i18n="l3">Firma</span><input name="company" autocomplete="organization" placeholder="Nazwa firmy"></label><label><span data-i18n="l4">Co chcesz zautomatyzować?</span><textarea name="message" required placeholder="Opisz swoje zapytanie..."></textarea></label><input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><div><button class="btn p" type="submit" data-i18n="send">Wyślij zapytanie</button></div><p id="fs" role="status"></p></form>
+</div></section></main>
+<div class="modal-overlay" id="package-modal"><div class="modal"><button class="modal-close" onclick="closePackageModal()" aria-label="Zamknij">&times;</button><h3 class="modal-title" data-i18n="modalTitle">Zamówienie pakietu</h3><div class="modal-badge" id="modal-package-name">Pakiet Start</div>
+<form class="contact-form" id="modal-form" novalidate><input type="hidden" name="selected_package" id="hidden-package-input"><label><span data-i18n="l1">Imię i nazwisko</span><input name="name" required autocomplete="name" placeholder="Jan Kowalski"></label><label><span data-i18n="l2">E-mail</span><input name="email" type="email" required autocomplete="email" placeholder="jan@firma.pl"></label><label><span data-i18n="phoneLabel">Numer telefonu</span><input name="phone" type="tel" required autocomplete="tel" placeholder="+48 123 456 789"></label><label><span data-i18n="notesLabel">Dodatkowe uwagi (opcjonalnie)</span><textarea name="notes" style="min-height:80px" placeholder="Opisz krótko swoje wymagania..."></textarea></label><input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="btn p" type="submit" style="width:100%;margin-top:8px" data-i18n="modalSend">Wyślij zamówienie pakietu</button><p id="modal-status" role="status"></p></form></div></div>
+<footer><div class="w"><span>© <span id="yr"></span> Coreflux. </span><span data-i18n="fo">Dane z formularza służą wyłącznie do odpowiedzi na zapytanie.</span></div></footer>
 
-<section id="faq"><div class="w two">
-<h2 data-i18n="ft"></h2>
-<div>
-<details><summary data-i18n="q1"></summary><p data-i18n="r1"></p></details>
-<details><summary data-i18n="q2"></summary><p data-i18n="r2"></p></details>
-<details><summary data-i18n="q3"></summary><p data-i18n="r3"></p></details>
-<details><summary data-i18n="q4"></summary><p data-i18n="r4"></p></details>
-</div>
-</div></section>
-
-<section id="contact"><div class="w two">
-<div><h2 data-i18n="kt"></h2><p class="sub" data-i18n="kx"></p></div>
-<form id="f" novalidate>
-<label><span data-i18n="l1"></span><input name="name" required autocomplete="name" placeholder="Jan Kowalski"></label>
-<label><span data-i18n="l2"></span><input name="email" type="email" required autocomplete="email" placeholder="jan@firma.pl"></label>
-<label><span data-i18n="l3"></span><input name="company" autocomplete="organization" placeholder="Nazwa firmy"></label>
-<label><span data-i18n="l4"></span><textarea name="message" required placeholder="Opisz swoje zapytanie..."></textarea></label>
-<!-- Honeypot antybotowy -->
-<input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-<div><button class="btn p" type="submit" data-i18n="send"></button></div>
-<p id="fs" role="status"></p>
-</form>
-</div></section>
-</main>
-
-<!-- MODAL WYBORU PAKIETU -->
-<div class="modal-overlay" id="package-modal">
-  <div class="modal">
-    <button class="modal-close" onclick="closePackageModal()">&times;</button>
-    <h3 class="modal-title">Zamówienie Pakietu</h3>
-    <div class="modal-badge" id="modal-package-name">Pakiet Start</div>
-    
-    <div class="price-box">
-      Cena pakietu (z rabatem -20%): <span id="modal-display-price">0</span> zł
-    </div>
-
-    <div class="coupon-box">
-      <input type="text" id="coupon-input" placeholder="Wpisz kod rabatowy (np. START20)">
-      <button type="button" onclick="applyCoupon()">Zastosuj</button>
-    </div>
-
-    <form id="modal-form" novalidate>
-      <input type="hidden" name="selected_package" id="hidden-package-input">
-      <input type="hidden" name="final_price" id="hidden-price-input">
-      <label>
-        <span>Imię i nazwisko</span>
-        <input name="name" required autocomplete="name" placeholder="Jan Kowalski">
-      </label>
-      <label>
-        <span>Adres e-mail</span>
-        <input name="email" type="email" required autocomplete="email" placeholder="jan@firma.pl">
-      </label>
-      <label>
-        <span>Numer telefonu</span>
-        <input name="phone" type="tel" required autocomplete="tel" placeholder="+48 123 456 789">
-      </label>
-      <label>
-        <span>Dodatkowe uwagi (opcjonalnie)</span>
-        <textarea name="notes" style="min-height:70px;" placeholder="Opisz krótko swoje wymagania..."></textarea>
-      </label>
-      <!-- Honeypot antybotowy do modala -->
-      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn p" type="submit" style="width:100%;margin-top:8px;">Wyślij zamówienie pakietu</button>
-      <p id="modal-status" role="status"></p>
-    </form>
-  </div>
-</div>
-
-<!-- MODAL LOGOWANIA DLA KLIENTÓW (ZABEZPIECZONY PRZED CODE INJECTION) -->
-<div class="modal-overlay" id="login-modal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeLoginModal()">&times;</button>
-    <h3 class="modal-title">Strefa Klienta Coreflux</h3>
-    <p class="sub" style="margin-top:0;margin-bottom:20px;font-size:14px;">Zaloguj się za pomocą swojego e-maila wdrożeniowego, aby sprawdzić status swojego bota.</p>
-    
-    <form id="login-form" novalidate>
-      <label>
-        <span>Adres e-mail firmy</span>
-        <input name="email" type="email" required autocomplete="email" placeholder="jan@firma.pl">
-      </label>
-      <!-- Honeypot antybotowy do logowania -->
-      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn p" type="submit" style="width:100%;margin-top:12px;">Zaloguj się</button>
-      <p id="login-status" role="status"></p>
-    </form>
-  </div>
-</div>
-
-<footer><div class="w"><span>© <span id="yr"></span> Coreflux. </span><span data-i18n="fo"></span></div></footer>
+<button id="cf-chat-toggle" type="button" aria-expanded="false" aria-controls="cf-chat-panel"><span data-cf-pl="Porozmawiaj z nami" data-cf-en="Chat with us">Porozmawiaj z nami</span></button>
+<section id="cf-chat-panel" aria-label="Coreflux chat" aria-hidden="true"><div class="cf-chat-head"><div><strong>Coreflux</strong><br><small id="cf-chat-status">Asystent online</small></div><button id="cf-chat-close" type="button" aria-label="Zamknij czat">&times;</button></div><div id="cf-chat-messages" aria-live="polite"></div><form id="cf-chat-form"><input id="cf-chat-input" name="message" autocomplete="off" maxlength="2000" required placeholder="Napisz wiadomość..." aria-label="Wiadomość"><button id="cf-chat-send" type="submit">Wyślij</button></form></section>
 
 <script>
-/* ZABEZPIECZENIE PRZED KOPIOWANIEM I PODGLĄDEM KODU */
-document.addEventListener('contextmenu', function(e) {
-  e.preventDefault();
-});
-
-document.addEventListener('keydown', function(e) {
-  if (
-    e.key === 'F12' || 
-    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || 
-    (e.ctrlKey && (e.key === 'U' || e.key === 'S'))
-  ) {
-    e.preventDefault();
-  }
-});
-
-const CONFIG={
-  email:"kontakt@coreflux.pl",
-  webhookForm:"https://discord.com/api/webhooks/1563261942045352118/n_BV6efAYXEyM8l6Snv1j2uViy5vs5L9lJoWxe5qCg1QSojKiKWlxJzjaMwt1tX1wnaJ",
-  webhookPackage:"https://discord.com/api/webhooks/1563263367731347568/TjdgWuUl5qgKnt9kT7yyyxX1Xzm5x_OExzU6hQuuRb8iJ4G0Gi-XAulEJgaOIc05wYvV"
-};
-
 const T={
-pl:{n1:"Jak działa",n2:"Pakiety",n3:"FAQ",n4:"Kontakt",login_btn:"Strefa Klienta",
-h1:"Odpowiadamy Twoim klientom, kiedy Ty nie możesz",
-lead:"Chatboty dla firm, które odpowiadają na powtarzalne pytania, zbierają zapytania i przekazują rozmowę człowiekowi, gdy trzeba.",
-c1:"Umów 15 minut rozmowy",c2:"Zobacz, jak to działa",pick:"Wybierz branżę i zobacz przykładową rozmowę",
-i_shop:"Sklep internetowy",i_serv:"Usługi",i_est:"Nieruchomości",i_man:"Produkcja",
-pt:"Po godzinach pracy zapytania zostają bez odpowiedzi",
-p1:"Klient pisze wieczorem i trafia do konkurencji, która odpisała pierwsza.",
-p2:"Te same pytania wracają codziennie i zabierają czas zespołu.",
-p3:"Zapytania giną w skrzynkach, bo nikt nie ma kiedy ich uporządkować.",
-ht:"Od rozmowy do gotowego zgłoszenia u Ciebie",
-hx:"Bot prowadzi rozmowę i zbiera potrzebne dane. Automatyzacja zapisuje zgłoszenie w arkuszu lub wysyła je mailem. Gdy bot nie zna odpowiedzi, przekazuje rozmowę człowiekowi.",
-f1:"Rozmowa",f2:"Bot",f3:"Automatyzacja",f4:"Twój zespół",
-prt:"Pakiety dla firm",prx:"Przystępne ceny dopasowane do budżetu lokalnych firm. Startujemy z promocją -20% na start.",
-a1:"Start",a1d:"Dla małych firm i salonów usługowych.",
-f_s1:"Jeden wyznaczony kanał",f_s2:"Najczęstsze pytania i FAQ",
-a2:"Biznes",a2d:"Pełna automatyzacja i integracja procesów.",
-f_b1:"Wiele scenariuszy obsługi",f_b2:"Zapis do Google Sheets / CRM",f_b3:"Przekazanie do człowieka",
-a3:"Indywidualny",a3d:"Dla firm o specyficznych wymaganiach.",
-f_c1:"Własne procesy i API",f_c2:"Wielojęzyczność",
-choose:"Wybierz pakiet",
-anc:"Inwestycja zwraca się już po pozyskaniu jednego nowego klienta miesięcznie dzięki automatycznej obsłudze zapytania.",
-ft:"Najczęstsze pytania",
-q1:"Czy bot zastąpi mój zespół?",r1:"Nie. Przejmuje powtarzalne pytania, a trudniejsze sprawy przekazuje człowiekowi.",
-q2:"Ile trwa wdrożenie?",r2:"Prosty scenariusz można uruchomić w kilka dni. Dokładny czas ustalamy po rozmowie.",
-q3:"Co z danymi moich klientów?",r3:"Bot zbiera tylko to, o co pyta w rozmowę, a dane trafiają wyłącznie do Ciebie. Szczegóły ustalamy w umowie.",
-q4:"Czy bot mówi po polsku i angielsku?",r4:"Tak, obsługuje oba języki.",
-kt:"Opisz, co chcesz zautomatyzować",kx:"Odpiszemy z propozycją pilota.",
-l1:"Imię i nazwisko",l2:"E-mail",l3:"Firma",l4:"Co chcesz zautomatyzować?",send:"Wyślij zapytanie",
-ok:"Dziękujemy. Odpiszemy najszybciej, jak to możliwe.",err:"Nie udało się wysłać. Spróbuj ponownie lub napisz na ",req:"Uzupełnij wymagane pola poprawnie.",
-fo:"Dane z formularza służą wyłącznie do odpowiedzi na zapytanie.",dh:"Asystent Coreflux · demo",
-stream_title:"OSTATNI PAYLOAD DO SYSTEMU:"},
-en:{n1:"How it works",n2:"Plans",n3:"FAQ",n4:"Contact",login_btn:"Client Area",
-h1:"We answer your customers when you can’t",
-lead:"Chatbots for businesses that handle repeated questions, collect enquiries and hand the conversation to a person when needed.",
-c1:"Book a 15-minute call",c2:"See how it works",pick:"Pick an industry to see a sample conversation",
-i_shop:"Online store",i_serv:"Services",i_est:"Real estate",i_man:"Manufacturing",
-pt:"After working hours, enquiries go unanswered",
-p1:"A customer writes in the evening and ends up with the competitor who replied first.",
-p2:"The same questions come back every day and take up your team’s time.",
-p3:"Enquiries get lost in inboxes because nobody has time to sort them.",
-ht:"From conversation to a ready request on your side",
-hx:"The bot runs the conversation and collects the details. Automation saves the request to a spreadsheet or sends it by email. When the bot doesn’t know the answer, it hands the chat to a person.",
-f1:"Conversation",f2:"Bot",f3:"Automation",f4:"Your team",
-prt:"Business Plans",prx:"Affordable pricing tailored to local business budgets with a -20% start discount.",
-a1:"Start",a1d:"For small businesses and service salons.",
-f_s1:"One designated channel",f_s2:"Common FAQ handling",
-a2:"Business",a2d:"Full automation and process integration.",
-f_b1:"Multiple conversation flows",f_b2:"Save to Google Sheets / CRM",f_b3:"Human handover logic",
-a3:"Custom",a3d:"For businesses with specific requirements.",
-f_c1:"Custom APIs & processes",f_c2:"Multi-language support",
-choose:"Choose plan",
-anc:"The investment pays off after acquiring just one new client per month through automated responses.",
-ft:"Common questions",
-q1:"Will the bot replace my team?",r1:"No. It takes the repeated questions and hands harder cases to a person.",
-q2:"How long does setup take?",r2:"A simple scenario can go live in a few days. We confirm the exact time after a call.",
-q3:"What happens to my customers’ data?",r3:"The bot collects only what it asks in the conversation, and the data goes only to you. We agree the details in the contract.",
-q4:"Does the bot speak Polish and English?",r4:"Yes, supports both.",
-kt:"Tell us what you want to automate",kx:"We’ll reply with a pilot proposal.",
-l1:"Full name",l2:"Email",l3:"Company",l4:"What do you want to automate?",send:"Send enquiry",
-ok:"Thank you. We’ll reply as soon as we can.",err:"Sending failed. Try again or write to ",req:"Please fill in required fields correctly.",
-fo:"Form data is used only to reply to your enquiry.",dh:"Coreflux assistant · demo",
-stream_title:"LATEST SYSTEM PAYLOAD:"}
-};
-
-const SC={
-shop:{
-  pl:[
-    ["u","Czy zamówienie złożone dziś zdążę dostać przed weekendem?"],
-    ["b","Tak, jeśli zamówisz do 14:00, wyślemy je dziś kurierem. Podaj kod pocztowy, a sprawdzę termin.", {status:"qualifying", intent:"delivery_check"}],
-    ["u","80-001"],
-    ["b","Dostawa do Gdańska: piątek lub sobota. Chcesz, żebym przygotował zamówienie?", {status:"lead_ready", postal:"80-001", city:"Gdańsk"}]
-  ],
-  en:[
-    ["u","If I order today, will it arrive before the weekend?"],
-    ["b","Yes, orders placed before 2 pm ship today by courier. Give me your postcode and I’ll check the date.", {status:"qualifying", intent:"delivery_check"}],
-    ["u","SW1A 1AA"],
-    ["b","Delivery to London: Friday or Saturday. Want me to prepare the order?", {status:"lead_ready", postal:"SW1A 1AA", city:"London"}]
-  ]
-},
-serv:{
-  pl:[
-    ["u","Chcę się umówić na wycenę remontu łazienki."],
-    ["b","Chętnie. Jaki jest metraż łazienki i w jakim mieście mieszkasz?", {status:"qualifying", intent:"quote_request"}],
-    ["u","6 m², Poznań"],
-    ["b","Mamy wolne terminy we wtorek i czwartek. Który wybierasz? Potem poproszę o numer telefonu.", {status:"lead_ready", size:"6m2", city:"Poznań"}]
-  ],
-  en:[
-    ["u","I’d like a quote for a bathroom renovation."],
-    ["b","Happy to help. What size is the bathroom and which city are you in?", {status:"qualifying", intent:"quote_request"}],
-    ["u","6 m², Manchester"],
-    ["b","We have slots on Tuesday and Thursday. Which suits you? Then I’ll ask for a phone number.", {status:"lead_ready", size:"6m2", city:"Manchester"}]
-  ]
-},
-est:{
-  pl:[
-    ["u","Szukam 3 pokoi na Mokotowie do 1,2 mln zł."],
-    ["b","Mam kilka ofert spełniających te kryteria. Czy ważny jest balkon lub miejsce w garażu?", {status:"qualifying", intent:"real_estate"}],
-    ["u","Balkon tak, garaż nie"],
-    ["b","Przesyłam 3 oferty z balkonem. Mogę umówić oglądanie z doradcą. Jaki termin ci pasuje?", {status:"lead_ready", district:"Mokotów", budget:"1.2m"}]
-  ],
-  en:[
-    ["u","I’m looking for 3 bedrooms in Kensington under £900k."],
-    ["b","I have a few listings that match. Do you need a balcony or parking?", {status:"qualifying", intent:"real_estate"}],
-    ["u","Balcony yes, parking no"],
-    ["b","Sending 3 listings with a balcony. I can book a viewing with an agent. What time suits you?", {status:"lead_ready", area:"Kensington", budget:"900k"}]
-  ]
-},
-man:{
-  pl:[
-    ["u","Potrzebuję oferty na 500 sztuk elementu z aluminium."],
-    ["b","Podaj proszę rysunek lub wymiary i wymaganą tolerancję. Przekażę zapytanie działowi technicznemu.", {status:"qualifying", intent:"manufacturing"}],
-    ["u","Wysyłam rysunek PDF"],
-    ["b","Dziękuję, mam plik. Handlowiec odpisze do końca dnia roboczego. Na jaki e-mail?", {status:"lead_ready", quantity:500, material:"aluminium"}]
-  ],
-  en:[
-    ["u","I need a quote for 500 aluminium parts."],
-    ["b","Please send a drawing or dimensions and the required tolerance. I’ll pass the enquiry to our technical team."],
-    ["u","Sending a PDF drawing"],
-    ["b","Thanks, I have the file. A sales rep will reply by end of business day. Which email?", {status:"lead_ready", quantity:500, material:"aluminium"}]
-  ]
-}
-};
-const IND=["shop","serv","est","man"],IK={shop:"i_shop",serv:"i_serv",est:"i_est",man:"i_man"};
-
+pl:{n1:"Jak działa",n2:"Pakiety",n3:"FAQ",n4:"Kontakt",h1:"Odpowiadamy Twoim klientom, kiedy Ty nie możesz",lead:"Chatboty dla firm, które odpowiadają na powtarzalne pytania, zbierają zapytania i przekazują rozmowę człowiekowi, gdy trzeba.",c1:"Umów 15 minut rozmowy",c2:"Zobacz, jak to działa",pick:"Wybierz branżę i zobacz przykładową rozmowę",i_shop:"Sklep internetowy",i_serv:"Usługi",i_est:"Nieruchomości",i_man:"Produkcja",pt:"Po godzinach pracy zapytania zostają bez odpowiedzi",p1:"Klient pisze wieczorem i trafia do konkurencji, która odpisała pierwsza.",p2:"Te same pytania wracają codziennie i zabierają czas zespołu.",p3:"Zapytania giną w skrzynkach, bo nikt nie ma kiedy ich uporządkować.",ht:"Od rozmowy do gotowego zgłoszenia u Ciebie",hx:"Bot prowadzi rozmowę i zbiera potrzebne dane. Automatyzacja zapisuje zgłoszenie w arkuszu lub wysyła je mailem. Gdy bot nie zna odpowiedzi, przekazuje rozmowę człowiekowi.",f1:"Rozmowa",f2:"Bot",f3:"Automatyzacja",f4:"Twój zespół",prt:"Pakiety",prx:"Zaczynamy od krótkiego pilota, żeby sprawdzić bota na Twoich prawdziwych pytaniach.",a1:"Start",a1p:"od 990 zł",a1d:"Dla małych firm rozpoczynających automatyzację.",f_s1:"Jeden wyznaczony kanał",f_s2:"Najczęstsze pytania i FAQ",a2:"Biznes",a2p:"od 2 490 zł",a2d:"Pełna automatyzacja i integracja procesów.",f_b1:"Wiele scenariuszy obsługi",f_b2:"Zapis do Google Sheets / CRM",f_b3:"Przekazanie do człowieka",a3:"Indywidualny",a3p:"wycena",a3d:"Dla firm o specyficznych wymaganiach.",f_c1:"Własne procesy i API",f_c2:"Wielojęzyczność",choose:"Wybierz pakiet",top:"Najczęściej wybierany",anc:"Pracownik obsługi klienta to koszt rzędu kilku tysięcy złotych miesięcznie, a pracuje kilka godzin dziennie. Bot odpowiada całą dobę.",ft:"Najczęstsze pytania",q1:"Czy bot zastąpi mój zespół?",r1:"Nie. Przejmuje powtarzalne pytania, a trudniejsze sprawy przekazuje człowiekowi.",q2:"Ile trwa wdrożenie?",r2:"Prosty scenariusz można uruchomić w kilka dni. Dokładny czas ustalamy po rozmowie.",q3:"Co z danymi moich klientów?",r3:"Bot zbiera tylko to, o co pyta w rozmowie, a dane trafiają wyłącznie do Ciebie. Szczegóły ustalamy w umowie.",q4:"Czy bot mówi po polsku i angielsku?",r4:"Tak, obsługuje oba języki.",kt:"Opisz, co chcesz zautomatyzować",kx:"Odpiszemy z propozycją pilota.",l1:"Imię i nazwisko",l2:"E-mail",l3:"Firma",l4:"Co chcesz zautomatyzować?",send:"Wyślij zapytanie",fo:"Dane z formularza służą wyłącznie do odpowiedzi na zapytanie.",stream_title:"OSTATNI PAYLOAD DO SYSTEMU:",dh:"Asystent Coreflux · demo",phoneLabel:"Numer telefonu",notesLabel:"Dodatkowe uwagi (opcjonalnie)",modalTitle:"Zamówienie pakietu",modalSend:"Wyślij zamówienie pakietu",chatOpen:"Porozmawiaj z nami",chatInput:"Napisz wiadomość...",chatSend:"Wyślij",chatStatus:"Asystent online",chatWelcome:"Cześć! W czym mogę Ci pomóc?",chatWait:"Chwileczkę...",chatError:"Przepraszamy, asystent jest chwilowo niedostępny. Spróbuj ponownie.",formNotice:"Formularz wymaga podłączenia bezpiecznego endpointu backendu.",required:"Uzupełnij wymagane pola poprawnie."},
+en:{n1:"How it works",n2:"Plans",n3:"FAQ",n4:"Contact",h1:"We answer your customers when you can’t",lead:"Chatbots for businesses that handle repeated questions, collect enquiries and hand the conversation to a person when needed.",c1:"Book a 15-minute call",c2:"See how it works",pick:"Pick an industry to see a sample conversation",i_shop:"Online store",i_serv:"Services",i_est:"Real estate",i_man:"Manufacturing",pt:"After working hours, enquiries go unanswered",p1:"A customer writes in the evening and ends up with the competitor who replied first.",p2:"The same questions come back every day and take up your team’s time.",p3:"Enquiries get lost in inboxes because nobody has time to sort them.",ht:"From conversation to a ready request on your side",hx:"The bot runs the conversation and collects the details. Automation saves the request to a spreadsheet or sends it by email. When the bot doesn’t know the answer, it hands the chat to a person.",f1:"Conversation",f2:"Bot",f3:"Automation",f4:"Your team",prt:"Plans",prx:"We start with a short pilot to test the bot on your real questions.",a1:"Start",a1p:"from 990 PLN",a1d:"For small businesses starting automation.",f_s1:"One designated channel",f_s2:"Common FAQ handling",a2:"Business",a2p:"from 2,490 PLN",a2d:"Full automation and process integration.",f_b1:"Multiple conversation flows",f_b2:"Save to Google Sheets / CRM",f_b3:"Human handover logic",a3:"Custom",a3p:"quote",a3d:"For businesses with specific requirements.",f_c1:"Custom APIs & processes",f_c2:"Multi-language support",choose:"Choose plan",top:"Most popular",anc:"A customer support employee costs several thousand zloty a month and works a few hours a day. The bot answers around the clock.",ft:"Common questions",q1:"Will the bot replace my team?",r1:"No. It takes the repeated questions and hands harder cases to a person.",q2:"How long does setup take?",r2:"A simple scenario can go live in a few days. We confirm the exact time after a call.",q3:"What happens to my customers’ data?",r3:"The bot collects only what it asks in the conversation, and the data goes only to you. We agree the details in the contract.",q4:"Does the bot speak Polish and English?",r4:"Yes, it supports both.",kt:"Tell us what you want to automate",kx:"We’ll reply with a pilot proposal.",l1:"Full name",l2:"Email",l3:"Company",l4:"What do you want to automate?",send:"Send enquiry",fo:"Form data is used only to reply to your enquiry.",stream_title:"LATEST SYSTEM PAYLOAD:",dh:"Coreflux assistant · demo",phoneLabel:"Phone number",notesLabel:"Additional notes (optional)",modalTitle:"Plan order",modalSend:"Send plan request",chatOpen:"Chat with us",chatInput:"Type a message...",chatSend:"Send",chatStatus:"Assistant online",chatWelcome:"Hello! How can I help you?",chatWait:"Please wait...",chatError:"Sorry, the assistant is temporarily unavailable. Please try again.",formNotice:"This form needs a secure backend endpoint to be connected.",required:"Please complete the required fields correctly."}};
+let lang="pl",ind="shop",token=0;
 const $=s=>document.querySelector(s),log=$("#log"),chips=$("#chips"),jsonOutput=$("#json-output");
-const red=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const SC={shop:{pl:[["u","Czy zamówienie złożone dziś zdążę dostać przed weekendem?"],["b","Tak, jeśli zamówisz do 14:00, wyślemy je dziś kurierem. Podaj kod pocztowy, a sprawdzę termin.",{status:"qualifying",intent:"delivery_check"}],["u","80-001"],["b","Dostawa do Gdańska: piątek lub sobota. Chcesz, żebym przygotował zamówienie?",{status:"lead_ready",postal:"80-001",city:"Gdańsk"}]],en:[["u","If I order today, will it arrive before the weekend?"],["b","Yes, orders placed before 2 pm ship today by courier. Give me your postcode and I’ll check the date.",{status:"qualifying",intent:"delivery_check"}],["u","SW1A 1AA"],["b","Delivery to London: Friday or Saturday. Want me to prepare the order?",{status:"lead_ready",postal:"SW1A 1AA",city:"London"}]]},serv:{pl:[["u","Chcę się umówić na wycenę remontu łazienki."],["b","Chętnie. Jaki jest metraż łazienki i w jakim mieście mieszkasz?",{status:"qualifying",intent:"quote_request"}],["u","6 m², Poznań"],["b","Mamy wolne terminy we wtorek i czwartek. Który wybierasz? Potem poproszę o numer telefonu.",{status:"lead_ready",size:"6m2",city:"Poznań"}]],en:[["u","I’d like a quote for a bathroom renovation."],["b","Happy to help. What size is the bathroom and which city are you in?",{status:"qualifying",intent:"quote_request"}],["u","6 m², Manchester"],["b","We have slots on Tuesday and Thursday. Which suits you? Then I’ll ask for a phone number.",{status:"lead_ready",size:"6m2",city:"Manchester"}]]},est:{pl:[["u","Szukam 3 pokoi na Mokotowie do 1,2 mln zł."],["b","Mam kilka ofert spełniających te kryteria. Czy ważny jest balkon lub miejsce w garażu?",{status:"qualifying",intent:"real_estate"}],["u","Balkon tak, garaż nie"],["b","Przesyłam 3 oferty z balkonem. Mogę umówić oglądanie z doradcą. Jaki termin ci pasuje?",{status:"lead_ready",district:"Mokotów",budget:"1.2m"}]],en:[["u","I’m looking for 3 bedrooms in Kensington under £900k."],["b","I have a few listings that match. Do you need a balcony or parking?",{status:"qualifying",intent:"real_estate"}],["u","Balcony yes, parking no"],["b","Sending 3 listings with a balcony. I can book a viewing with an agent. What time suits you?",{status:"lead_ready",area:"Kensington",budget:"900k"}]]},man:{pl:[["u","Potrzebuję oferty na 500 sztuk elementu z aluminium."],["b","Podaj proszę rysunek lub wymiary i wymaganą tolerancję. Przekażę zapytanie działowi technicznemu.",{status:"qualifying",intent:"manufacturing"}],["u","Wysyłam rysunek PDF"],["b","Dziękuję, mam plik. Handlowiec odpisze do końca dnia roboczego. Na jaki e-mail?",{status:"lead_ready",quantity:500,material:"aluminium"}]],en:[["u","I need a quote for 500 aluminium parts."],["b","Please send a drawing or dimensions and the required tolerance. I’ll pass the enquiry to our technical team."],["u","Sending a PDF drawing"],["b","Thanks, I have the file. A sales rep will reply by end of business day. Which email?",{status:"lead_ready",quantity:500,material:"aluminium"}]]}};
+const IND=["shop","serv","est","man"],IK={shop:"i_shop",serv:"i_serv",est:"i_est",man:"i_man"};
+function addDemo(role,text,typing=false){const e=document.createElement("div");e.className="m "+role;if(typing){e.textContent="…"}else e.textContent=text;log.appendChild(e);log.scrollTop=log.scrollHeight;return e}
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
-let lang="pl",ind="shop",tok=0;
-
+async function play(){const my=++token;log.innerHTML="";jsonOutput.textContent=JSON.stringify({status:"initializing_session",industry:ind},null,2);for(const item of SC[ind][lang]){if(my!==token)return;await wait(400);if(my!==token)return;addDemo(item[0],item[1]);if(item[2])jsonOutput.textContent=JSON.stringify({timestamp:new Date().toISOString(),industry:ind,...item[2]},null,2)}}
+function mark(){chips.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.k===ind)))}
 IND.forEach(k=>{const b=document.createElement("button");b.type="button";b.dataset.k=k;b.onclick=()=>{ind=k;mark();play()};chips.appendChild(b)});
-function mark(){chips.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===ind))}
-
-function add(role,text,typing){const e=document.createElement("div");e.className="m "+role+(typing?" ty":"");if(typing)e.innerHTML="<i></i><i></i><i></i>";else e.textContent=text;log.appendChild(e);log.scrollTop=log.scrollHeight;return e}
-async function play(){
-  const my=++tok;log.innerHTML="";
-  jsonOutput.textContent = JSON.stringify({ status: "initializing_session", industry: ind }, null, 2);
-  
-  for(const item of SC[ind][lang]){
-    const r = item[0], t = item[1], meta = item[2];
-    if(my!==tok)return;
-    if(r==="b"){
-      const e=add("b","",true);
-      await wait(red?0:850);
-      if(my!==tok)return;
-      e.classList.remove("ty");
-      e.textContent=t;
-      log.scrollTop=log.scrollHeight;
-      if(meta){
-        jsonOutput.textContent = JSON.stringify({
-          timestamp: new Date().toISOString(),
-          industry: ind,
-          ...meta
-        }, null, 2);
-      }
-    } else {
-      await wait(red?0:650);
-      if(my!==tok)return;
-      add("u",t);
-    }
-  }
-}
-
-function setLang(l){
-  lang=l;document.documentElement.lang=l;
-  document.querySelectorAll("[data-i18n]").forEach(e=>{
-    if(T[l][e.dataset.i18n]) e.textContent=T[l][e.dataset.i18n];
-  });
-  chips.querySelectorAll("button").forEach(b=>b.textContent=T[l][IK[b.dataset.k]]);
-  $("#dh").textContent=T[l].dh;
-  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===l));
-  document.title="Coreflux · "+T[l].h1;
-  try{localStorage.setItem("cf-lang",l)}catch(e){}
-  mark();play();
-}
+function setLang(l){lang=l;document.documentElement.lang=l;document.querySelectorAll("[data-i18n]").forEach(e=>{if(T[l][e.dataset.i18n])e.textContent=T[l][e.dataset.i18n]});chips.querySelectorAll("button").forEach(b=>b.textContent=T[l][IK[b.dataset.k]]);$("#dh").textContent=T[l].dh;document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.l===l)));document.title="Coreflux · "+T[l].h1;const chatToggle=$("#cf-chat-toggle span");chatToggle.textContent=T[l].chatOpen;$("#cf-chat-input").placeholder=T[l].chatInput;$("#cf-chat-input").setAttribute("aria-label",l==="en"?"Message":"Wiadomość");$("#cf-chat-send").textContent=T[l].chatSend;$("#cf-chat-status").textContent=T[l].chatStatus;mark();play()}
 document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>setLang(b.dataset.l));
-
-new IntersectionObserver((en,ob)=>en.forEach(x=>{if(x.isIntersecting){x.target.classList.add("go");ob.unobserve(x.target)}}),{threshold:.4}).observe($("#flow"));
-
+new IntersectionObserver((entries,observer)=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("go");observer.unobserve(e.target)}}),{threshold:.4}).observe($("#flow"));
 $("#yr").textContent=new Date().getFullYear();
-
-/* FILTRY ANTYSPAMOWE I WULGARYZMÓW */
-const spamWords = ["chuj", "kutas", "kurwa", "pizda", "cipa", "pedał", "test", "asdf", "qwe", "zxc"];
-function containsSpam(text) {
-  const lowerText = text.toLowerCase();
-  for (let word of spamWords) {
-    if (lowerText.includes(word)) return true;
-  }
-  const words = lowerText.split(/\s+/);
-  for (let w of words) {
-    if (w.length > 5 && !/[aeiouyąęó]/.test(w)) return true;
-  }
-  return false;
-}
-
-/* LOGIKA MODALA ZAMÓWIENIA PAKIETU + KODU RABATOWEGO */
-let currentBasePrice = 0;
-
-function openPackageModal(packageName, basePrice) {
-  currentBasePrice = basePrice;
-  $("#modal-package-name").textContent = `Pakiet ${packageName}`;
-  $("#hidden-package-input").value = packageName;
-  $("#coupon-input").value = "START20"; // Domyślnie wstawiamy kod promocyjny
-  applyCoupon(); // Automatycznie naliczamy -20%
-  $("#modal-status").textContent = "";
-  $("#modal-form").reset();
-  $("#package-modal").classList.add("active");
-}
-
-function closePackageModal() {
-  $("#package-modal").classList.remove("active");
-}
-
-function applyCoupon() {
-  const code = $("#coupon-input").value.trim().toUpperCase();
-  let finalPrice = currentBasePrice;
-  
-  if (code === "START20") {
-    // 20% zniżki na wszystko
-    finalPrice = Math.round(currentBasePrice * 0.8);
-    $("#modal-display-price").textContent = `${finalPrice} zł (zastosowano rabat -20%)`;
-  } else if (code === "") {
-    $("#modal-display-price").textContent = `${currentBasePrice} zł`;
-  } else {
-    $("#modal-display-price").textContent = `${currentBasePrice} zł (Nieprawidłowy kod)`;
-  }
-  $("#hidden-price-input").value = finalPrice;
-}
-
-$("#package-modal").addEventListener("click", (e) => {
-  if(e.target === $("#package-modal")) closePackageModal();
-});
-
-/* LOGIKA MODALA LOGOWANIA (ZABEZPIECZONE PRZED CODE INJECTION) */
-function openLoginModal() {
-  $("#login-status").textContent = "";
-  $("#login-form").reset();
-  $("#login-modal").classList.add("active");
-}
-
-function closeLoginModal() {
-  $("#login-modal").classList.remove("active");
-}
-
-$("#login-modal").addEventListener("click", (e) => {
-  if(e.target === $("#login-modal")) closeLoginModal();
-});
-
-let loginAttempts = 0;
-let loginLockoutTime = 0;
-
-$("#login-form").addEventListener("submit", async ev => {
-  ev.preventDefault();
-  const f = ev.target, d = Object.fromEntries(new FormData(f)), st = $("#login-status");
-
-  if (d.website) return; // Honeypot
-
-  const now = Date.now();
-  if (loginAttempts >= 3 && now < loginLockoutTime) {
-    st.style.color = "#d9534f";
-    st.textContent = "Zbyt wiele nieudanych prób. Odczekaj 30 sekund.";
-    return;
-  }
-
-  // 1. BEZPIECZEŃSTWO: Rygorystyczna sanitizacja wejścia (odcięcie iniekcji kodu)
-  const rawEmail = (d.email || "").trim();
-  const sanitizedEmail = rawEmail.replace(/[^a-zA-Z0-9@._-]/g, "");
-
-  if (rawEmail !== sanitizedEmail) {
-    loginAttempts++;
-    if (loginAttempts >= 3) loginLockoutTime = now + 30000;
-    st.style.color = "#d9534f";
-    st.textContent = "Wykryto niedozwolone znaki w adresie e-mail.";
-    return;
-  }
-
-  // 2. Walidacja strukturalna standardowego e-maila
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!emailRegex.test(sanitizedEmail)) {
-    loginAttempts++;
-    if (loginAttempts >= 3) loginLockoutTime = now + 30000;
-    st.style.color = "#d9534f";
-    st.textContent = "Podaj poprawny adres e-mail klienta.";
-    return;
-  }
-
-  st.style.color = "var(--ink)";
-  st.textContent = "Weryfikacja w bazie klientów...";
-
-  await wait(1000);
-
-  st.style.color = "#d9534f";
-  st.textContent = "Nie znaleziono aktywnej subskrypcji dla tego adresu e-mail.";
-});
-
-/* WYSYŁKA ZAMÓWIENIA PAKIETU (WEBHOOK 2) + ANTYSPAM */
-$("#modal-form").addEventListener("submit", async ev => {
-  ev.preventDefault();
-  const f = ev.target, d = Object.fromEntries(new FormData(f)), st = $("#modal-status");
-  
-  if (d.website) return;
-
-  const lastModalSubmit = localStorage.getItem('cf_last_modal_submit');
-  if (lastModalSubmit && Date.now() - lastModalSubmit < 30000) {
-    st.style.color = "#d9534f";
-    st.textContent = "Zbyt wiele próśb. Odczekaj chwilę przed ponownym wysłaniem.";
-    return;
-  }
-
-  const nameParts = (d.name || "").trim().split(/\s+/);
-  if (nameParts.length < 2 || containsSpam(d.name)) {
-    st.style.color = "#d9534f";
-    st.textContent = "Podaj poprawne imię i nazwisko.";
-    return;
-  }
-
-  if (d.notes && containsSpam(d.notes)) {
-    st.style.color = "#d9534f";
-    st.textContent = "Wykryto niedozwoloną treść lub spam.";
-    return;
-  }
-
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!emailRegex.test(d.email || "")) {
-    st.style.color = "#d9534f";
-    st.textContent = "Podaj poprawny adres e-mail.";
-    return;
-  }
-
-  if (!d.phone) {
-    st.style.color = "#d9534f";
-    st.textContent = T[lang].req;
-    return;
-  }
-
-  st.style.color = "var(--ink)";
-  st.textContent = "Wysyłanie zamówienia...";
-
-  const discordPayload = {
-    embeds: [{
-      title: `⚡ Nowe zweryfikowane zamówienie pakietu: ${d.selected_package}`,
-      color: 1590480,
-      fields: [
-        { name: "📦 Wybrany Pakiet", value: d.selected_package, inline: true },
-        { name: "💰 Cena po rabacie", value: `${d.final_price || currentBasePrice} zł`, inline: true },
-        { name: "👤 Zamawiający", value: d.name, inline: true },
-        { name: "📧 E-mail", value: d.email, inline: true },
-        { name: "📞 Telefon", value: d.phone, inline: true },
-        { name: "📝 Uwagi / Opis", value: d.notes || "Brak uwag" }
-      ],
-      footer: { text: "Anti-Spam Secure Package • " + new Date().toLocaleString("pl-PL") }
-    }]
-  };
-
-  try {
-    const r = await fetch(CONFIG.webhookPackage, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(discordPayload)
-    });
-
-    if (!r.ok) throw new Error();
-    localStorage.setItem('cf_last_modal_submit', Date.now());
-    f.reset();
-    st.style.color = "#28a745";
-    st.textContent = "Zamówienie wysłane! Odezwiemy się niebawem.";
-    setTimeout(closePackageModal, 2500);
-  } catch(e) {
-    st.style.color = "#d9534f";
-    st.textContent = T[lang].err + CONFIG.email + ".";
-  }
-});
-
-/* WYSYŁKA OGÓLNEGO FORMULARZA KONTAKTOWEGO (WEBHOOK 1) + ANTYSPAM */
-$("#f").addEventListener("submit", async ev => {
-  ev.preventDefault();
-  const f = ev.target, d = Object.fromEntries(new FormData(f)), st = $("#fs");
-  
-  if (d.website) return;
-
-  const lastSubmit = localStorage.getItem('cf_last_submit');
-  if (lastSubmit && Date.now() - lastSubmit < 30000) {
-    st.style.color = "#d9534f";
-    st.textContent = "Zbyt wiele próśb. Odczekaj chwilę przed ponownym wysłaniem.";
-    return;
-  }
-
-  const nameParts = (d.name || "").trim().split(/\s+/);
-  if (nameParts.length < 2 || containsSpam(d.name)) {
-    st.style.color = "#d9534f";
-    st.textContent = "Podaj poprawne imię i nazwisko.";
-    return;
-  }
-
-  if (containsSpam(d.message) || (d.company && containsSpam(d.company))) {
-    st.style.color = "#d9534f";
-    st.textContent = "Wykryto niedozwoloną treść lub spam.";
-    return;
-  }
-
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!emailRegex.test(d.email || "")) {
-    st.style.color = "#d9534f";
-    st.textContent = "Podaj poprawny adres e-mail.";
-    return;
-  }
-
-  if (!d.message) {
-    st.style.color = "#d9534f";
-    st.textContent = T[lang].req;
-    return;
-  }
-  
-  st.style.color = "var(--ink)";
-  st.textContent = "Wysyłanie...";
-
-  const discordPayload = {
-    embeds: [{
-      title: "🚀 Nowe zweryfikowane zgłoszenie (Coreflux)",
-      color: 1590480,
-      fields: [
-        { name: "👤 Imię i nazwisko", value: d.name, inline: true },
-        { name: "📧 E-mail", value: d.email, inline: true },
-        { name: "🏢 Firma", value: d.company || "Brak danych", inline: true },
-        { name: "💬 Treść zapytania", value: d.message }
-      ],
-      footer: { text: "Anti-Spam Secure Form • " + new Date().toLocaleString("pl-PL") }
-    }]
-  };
-
-  try {
-    const r = await fetch(CONFIG.webhookForm, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(discordPayload)
-    });
-
-    if (!r.ok) throw new Error();
-    localStorage.setItem('cf_last_submit', Date.now());
-    f.reset();
-    st.style.color = "#28a745";
-    st.textContent = T[lang].ok;
-  } catch(e) {
-    st.style.color = "#d9534f";
-    st.textContent = T[lang].err + CONFIG.email + ".";
-  }
-});
-
-let saved=null;try{saved=localStorage.getItem("cf-lang")}catch(e){}
-setLang(saved||((navigator.language||"").toLowerCase().startsWith("pl")?"pl":"en"));
+function openPackageModal(name,price){$("#modal-package-name").textContent=`Pakiet ${name} (${price})`;$("#hidden-package-input").value=name;$("#modal-status").textContent="";$("#modal-form").reset();$("#hidden-package-input").value=name;$("#package-modal").classList.add("active")}
+function closePackageModal(){$("#package-modal").classList.remove("active")}
+$("#package-modal").addEventListener("click",e=>{if(e.target===$("#package-modal"))closePackageModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closePackageModal()});
+function validForm(form){const d=Object.fromEntries(new FormData(form));if(d.website)return null;if(!d.name||!d.email||!d.message&&form.id==="f"||!d.phone&&form.id==="modal-form")return {error:T[lang].required};if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email))return {error:"Podaj poprawny adres e-mail."};return {data:d}}
+$("#f").addEventListener("submit",e=>{e.preventDefault();const result=validForm(e.currentTarget);if(!result)return;$("#fs").style.color="#a12626";$("#fs").textContent=T[lang].formNotice+" Skontaktuj się bezpośrednio: kontakt@coreflux.pl."});
+$("#modal-form").addEventListener("submit",e=>{e.preventDefault();const result=validForm(e.currentTarget);if(!result)return;$("#modal-status").style.color="#a12626";$("#modal-status").textContent=T[lang].formNotice+" Skontaktuj się bezpośrednio: kontakt@coreflux.pl."});
+const CHAT_API="https://coreflux-bot-api.maciejpierzak786.workers.dev";
+const panel=$("#cf-chat-panel"),toggle=$("#cf-chat-toggle"),chatMessages=$("#cf-chat-messages"),chatInput=$("#cf-chat-input"),chatForm=$("#cf-chat-form"),chatSend=$("#cf-chat-send"),chatStatus=$("#cf-chat-status");let chatBusy=false,welcomed=false;
+function setChatOpen(open){panel.classList.toggle("cf-open",open);panel.setAttribute("aria-hidden",String(!open));toggle.setAttribute("aria-expanded",String(open));if(open)chatInput.focus()}
+function chatMessage(text,role){const node=document.createElement("div");node.className="cf-chat-msg "+role;node.textContent=text;chatMessages.appendChild(node);chatMessages.scrollTop=chatMessages.scrollHeight;return node}
+toggle.addEventListener("click",()=>{const open=!panel.classList.contains("cf-open");setChatOpen(open);if(open&&!welcomed){welcomed=true;chatMessage(T[lang].chatWelcome,"bot")}});
+$("#cf-chat-close").addEventListener("click",()=>setChatOpen(false));
+chatForm.addEventListener("submit",async e=>{e.preventDefault();if(chatBusy)return;const message=chatInput.value.trim();if(!message)return;chatMessage(message,"user");chatInput.value="";chatBusy=true;chatSend.disabled=true;chatStatus.textContent=T[lang].chatWait;const waiting=chatMessage(T[lang].chatWait,"bot");try{const response=await fetch(CHAT_API+"/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message})});if(!response.ok)throw new Error("HTTP "+response.status);const data=await response.json();waiting.remove();const reply=typeof data.reply==="string"?data.reply:typeof data.message==="string"?data.message:null;if(!reply)throw new Error("Invalid API response");chatMessage(reply,"bot")}catch(err){waiting.remove();chatMessage(T[lang].chatError,"error");console.error("Coreflux chat error:",err)}finally{chatBusy=false;chatSend.disabled=false;chatStatus.textContent=T[lang].chatStatus;chatInput.focus()}});
+setLang((navigator.language||"").toLowerCase().startsWith("pl")?"pl":"en");
 </script>
 </body>
 </html>
