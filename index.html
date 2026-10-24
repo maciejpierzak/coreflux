@@ -1180,12 +1180,21 @@ function addMessage(text, role) {
   row.className = "bp-msg-row " + role;
 
   if (role === "bot") {
-    row.innerHTML = `
-      <div class="bp-avatar-small" style="width:24px;height:24px;font-size:11px;">C</div>
-      <div class="bp-msg-bubble">${text}</div>
-    `;
+    const avatar = document.createElement("div");
+    avatar.className = "bp-avatar-small";
+    avatar.style.cssText = "width:24px;height:24px;font-size:11px;";
+    avatar.textContent = "C";
+
+    const bubble = document.createElement("div");
+    bubble.className = "bp-msg-bubble";
+    bubble.textContent = text;
+
+    row.append(avatar, bubble);
   } else {
-    row.innerHTML = `<div class="bp-msg-bubble">${text}</div>`;
+    const bubble = document.createElement("div");
+    bubble.className = "bp-msg-bubble";
+    bubble.textContent = text;
+    row.appendChild(bubble);
   }
 
   chatMessages.appendChild(row);
